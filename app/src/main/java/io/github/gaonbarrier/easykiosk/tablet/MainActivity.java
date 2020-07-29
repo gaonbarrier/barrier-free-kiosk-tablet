@@ -2,6 +2,7 @@ package io.github.gaonbarrier.easykiosk.tablet;
 
 import android.content.Intent;
 import android.view.View;
+import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // NetworkSection nw = new NetworkSection();
     }
     public void onClick(View view)
     {
