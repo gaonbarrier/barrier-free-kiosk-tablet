@@ -1,18 +1,11 @@
 package io.github.gaonbarrier.easykiosk.tablet.network;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import android.database.sqlite.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
-import javax.sql.*;
-
-import io.github.gaonbarrier.easykiosk.tablet.db.*;
 
 public class Receiver extends Thread {
     private ServerSocket serverSocket;
