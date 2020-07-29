@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
