@@ -58,6 +58,10 @@ public class optionDBOpenHelper {
         return mDB.update(optionDB.CreateDB._TABLENAME1, values, "_id=" + id, null) > 0;
     }
 
+    //ID number 찾기
+    public void findID(String name){
+        mDB.execSQL("SELECT id FROM items WHERE name = "+name+";");
+    }
     // Delete All
     public void deleteAllColumns() {
         mDB.delete(optionDB.CreateDB._TABLENAME1, null, null);

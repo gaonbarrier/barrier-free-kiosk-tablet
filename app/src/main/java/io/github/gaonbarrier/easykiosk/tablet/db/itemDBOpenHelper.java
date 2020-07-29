@@ -25,6 +25,7 @@ public class itemDBOpenHelper {
         public void onCreate(SQLiteDatabase db){
             db.execSQL(itemDB.CreateDB._CREATE0);
         }
+        //Table 생성
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -50,6 +51,7 @@ public class itemDBOpenHelper {
     public void close(){
         mDB.close();
     }
+    //create, close 등등...
 
     // Insert DB
     public long insertColumn(String name, String category , int pricehot, int pricecold, String image){
@@ -72,6 +74,11 @@ public class itemDBOpenHelper {
         values.put(itemDB.CreateDB.PRICECOLD, pricecold);
         values.put(itemDB.CreateDB.IMAGE, image);
         return mDB.update(itemDB.CreateDB._TABLENAME0, values, "_id=" + id, null) > 0;
+    }
+    //ID number 찾기
+    public long findID(String name){
+        Cursor c = mDB.rawQuery("SELECT id FROM items WHERE name = " + name + ";",null);
+        return c.getColumnIndex("_id");
     }
 
     // Delete All

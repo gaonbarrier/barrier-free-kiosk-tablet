@@ -19,6 +19,8 @@ public class Receiver extends Thread {
     private Socket socket;
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
+    private itemDBOpenHelper itemDBOpenHelper;
+    private optionDBOpenHelper optionDBOpenHelper;
 
     public void runServer(){
         try {
@@ -42,13 +44,20 @@ public class Receiver extends Thread {
                 System.out.println("Client sent:" + message);
                 switch(command){
                     case "NewMenu":{
-                        //items Table 에 insertColumn 을 써먹는다.
-                        String name = element.getAsJsonObject().get("Name").getAsString();
+                        String Name = element.getAsJsonObject().get("Name").getAsString();
+                        String Category = element.getAsJsonObject().get("Category").getAsString();
+                        int PriceHot = Integer.parseInt(element.getAsJsonObject().get("PriceHot").getAsString());
+                        int PriceCold = Integer.parseInt(element.getAsJsonObject().get("PriceCold").getAsString());
+                        String Image = element.getAsJsonObject().get("Image").getAsString();
+
+                        itemDBOpenHelper.insertColumn(Name,Category,PriceHot,PriceCold,Image);
                     }
                     break;
                     case "DeleteMenu":{
-                        //items Table에 deleteColumn을 써먹는다.
                         String name = element.getAsJsonObject().get("Name").getAsString();
+                        long id = itemDBOpenHelper.findID(name);
+
+                        itemDBOpenHelper.deleteColumn(id);
                     }
                     break;
                     default : System.out.println("Error");

@@ -28,9 +28,9 @@ public class Sender {
             for(int i = 0; i < cartList.size(); i++){
                 JsonObject element = new JsonObject();
                 element.addProperty("Name",cartList.get(i).getName());
-                element.addProperty("price",cartList.get(i).getPrice());
-                element.addProperty("isHot",cartList.get(i).getisHot());
-                element.addProperty("amount",cartList.get(i).getAmount());
+                element.addProperty("Price",cartList.get(i).getPrice());
+                element.addProperty("IsHot",cartList.get(i).getisHot());
+                element.addProperty("Amount",cartList.get(i).getAmount());
                 list.add(element);
             }
 
@@ -65,7 +65,4 @@ public class Sender {
             e.printStackTrace();
         }
     }
-    public void receiveData(){
-
-    }//나중에 데이터 받아드릴때
 }
