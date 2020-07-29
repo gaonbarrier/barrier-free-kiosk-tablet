@@ -3,6 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet.network;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,18 +19,17 @@ import android.content.Context;
 
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 
-public class Receiver extends Thread {
+public class Receiver extends AppCompatActivity implements Runnable {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
     private itemDBOpenHelper itemDBOpenHelper;
     private optionDBOpenHelper optionDBOpenHelper;
-    private Activity activity;
 
     public Receiver(){
-        //this.itemDBOpenHelper = new itemDBOpenHelper(getApplicationContext());
-        //this.optionDBOpenHelper = new optionDBOpenHelper(activity.getApplicationContext());
+        this.itemDBOpenHelper = new itemDBOpenHelper(getApplicationContext());
+        this.optionDBOpenHelper = new optionDBOpenHelper(getApplicationContext());
         //context값을 뭘로해야할까
         //뭔가 잘못되어가는것같군
         itemDBOpenHelper.open();
@@ -37,7 +37,8 @@ public class Receiver extends Thread {
         //getApplicationContext();
     }
 
-    public void runServer(){
+    @Override
+    public void run() {
         try {
             // 서버 생성
             serverSocket = new ServerSocket(2002);
@@ -76,7 +77,7 @@ public class Receiver extends Thread {
                     }
                     break;
                     default : System.out.println("Error");
-                    break;
+                        break;
                 }
                 bufWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 bufWriter.write(message);
