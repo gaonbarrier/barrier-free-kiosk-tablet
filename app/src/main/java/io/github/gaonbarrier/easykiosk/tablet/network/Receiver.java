@@ -12,17 +12,13 @@ import java.net.Socket;
 import java.util.Arrays;
 import javax.sql.*;
 
+import io.github.gaonbarrier.easykiosk.tablet.db.*;
+
 public class Receiver extends Thread {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
-
-    public String commandFinder(String JsonData){
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(JsonData);
-        return element.getAsJsonObject().get("Action").getAsString();
-    }
 
     public void runServer(){
         try {
@@ -39,21 +35,25 @@ public class Receiver extends Thread {
                 //client가 보낸 데이터 출력
                 bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String message = bufReader.readLine();
-                String command = commandFinder(message);
+                JsonParser parser = new JsonParser();
+                JsonElement element = parser.parse(message);
+                String command = element.getAsJsonObject().get("Action").getAsString();
                 System.out.println("Command : "+ command);
                 System.out.println("Client sent:" + message);
-                if (command == "NewMenu"){
-                    //새로운 메뉴에 대한 작업...
-                    //데이터베이스에 그거 짱박아놓는다
+                switch(command){
+                    case "NewMenu":{
+                        //items Table 에 insertColumn 을 써먹는다.
+                        String name = element.getAsJsonObject().get("Name").getAsString();
+                    }
+                    break;
+                    case "DeleteMenu":{
+                        //items Table에 deleteColumn을 써먹는다.
+                        String name = element.getAsJsonObject().get("Name").getAsString();
+                    }
+                    break;
+                    default : System.out.println("Error");
+                    break;
                 }
-                else if(command == "DeleteMenu"){
-                    //메뉴 삭제
-                    //데이터베이스에서 그거 지운다
-                }
-
-                //메시지에 따라서 동작 다르게 하는 법을 연구해봐야 함 ㅇㅇ
-                //if, else if 이용해서 할 생각 ㅇㅇ
-                //client에 데이터 전송
                 bufWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 bufWriter.write(message);
                 bufWriter.newLine();

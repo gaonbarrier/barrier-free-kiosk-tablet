@@ -5,5 +5,8 @@ public class NetworkSection {
     private Receiver receiver;
 
     public NetworkSection(){
+        sender = new Sender();
+        receiver = new Receiver();
+        receiver.runServer();
     }
 }
