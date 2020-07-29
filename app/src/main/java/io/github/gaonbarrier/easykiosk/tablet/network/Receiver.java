@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import android.database.sqlite.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
+import javax.sql.*;
 
 public class Receiver extends Thread {
     private ServerSocket serverSocket;
@@ -16,8 +18,10 @@ public class Receiver extends Thread {
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
 
-    public void commandFinder(String json){
-
+    public String commandFinder(String JsonData){
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(JsonData);
+        return element.getAsJsonObject().get("Action").getAsString();
     }
 
     public void runServer(){
@@ -35,9 +39,7 @@ public class Receiver extends Thread {
                 //client가 보낸 데이터 출력
                 bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String message = bufReader.readLine();
-                JsonParser parser = new JsonParser();
-                JsonElement element = parser.parse(message);
-                String command = element.getAsJsonObject().get("Action").getAsString();
+                String command = commandFinder(message);
                 System.out.println("Command : "+ command);
                 System.out.println("Client sent:" + message);
                 if (command == "NewMenu"){
