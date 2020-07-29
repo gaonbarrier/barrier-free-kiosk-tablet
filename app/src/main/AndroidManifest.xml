@@ -22,6 +22,16 @@
 
         <activity android:name=".MainActivity">
         </activity>
+
+        <activity android:name=".normal.NormalActivity">
+        </activity>
+
+        <activity android:name=".SoundActivity">
+        </activity>
+
+        <activity android:name=".PracticeActivity">
+        </activity>
+
     </application>
 
 </manifest>
