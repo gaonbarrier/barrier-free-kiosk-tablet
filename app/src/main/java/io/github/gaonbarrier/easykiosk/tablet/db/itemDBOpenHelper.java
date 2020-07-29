@@ -90,7 +90,7 @@ public class itemDBOpenHelper {
 
     // sort by column
     public Cursor sortColumn(String sort){
-        Cursor c = mDB.rawQuery( "SELECT * FROM usertable ORDER BY " + sort + ";", null);
+        Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);
         return c;
     }
 

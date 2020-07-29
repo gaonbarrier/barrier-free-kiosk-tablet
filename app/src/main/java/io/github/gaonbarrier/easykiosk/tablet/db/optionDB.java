@@ -3,9 +3,6 @@ package io.github.gaonbarrier.easykiosk.tablet.db;
 import android.provider.BaseColumns;
 
 public class optionDB {
-    static final String DB_KIOSK = "kiosk.db";
-    static final String Table_Options = "Options";
-
     public static final class CreateDB implements BaseColumns{
         public static final String NAME = "option";
         public static final String AMOUNT = "amount";

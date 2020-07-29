@@ -3,9 +3,6 @@ package io.github.gaonbarrier.easykiosk.tablet.db;
 import android.provider.BaseColumns;
 
 public final class itemDB {
-    static final String DB_KIOSK = "Kiosk.db";
-    static final String Table_Items = "Items";
-
     public static final class CreateDB implements BaseColumns{
         public static final String NAME = "name";
         public static final String CATEGORY = "category";
