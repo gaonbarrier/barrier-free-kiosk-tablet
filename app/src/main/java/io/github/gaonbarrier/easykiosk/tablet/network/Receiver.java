@@ -17,6 +17,7 @@ import java.net.Socket;
 import android.content.Context;
 
 
+import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 
 public class Receiver extends AppCompatActivity implements Runnable {
@@ -28,13 +29,10 @@ public class Receiver extends AppCompatActivity implements Runnable {
     private optionDBOpenHelper optionDBOpenHelper;
 
     public Receiver(){
-        this.itemDBOpenHelper = new itemDBOpenHelper(getApplicationContext());
-        this.optionDBOpenHelper = new optionDBOpenHelper(getApplicationContext());
-        //context값을 뭘로해야할까
-        //뭔가 잘못되어가는것같군
+        this.itemDBOpenHelper = new itemDBOpenHelper(MainActivity.this);
+        this.optionDBOpenHelper = new optionDBOpenHelper(MainActivity.this);
         itemDBOpenHelper.open();
         optionDBOpenHelper.open();
-        //getApplicationContext();
     }
 
     @Override
