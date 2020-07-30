@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Receiver.getItemDBOpenHelper().create();
         Receiver.getOptionDBOpenHelper().open();
         Receiver.getOptionDBOpenHelper().create();
-        //Receiver.run();
+        Receiver.serverCreate();
         //일단 Receiver랑 DB 선언하고 열어준다. 앱 시작하면
         //근데 왜 뻗냐 개그튼년아
         /////////////////////////////////////////////
