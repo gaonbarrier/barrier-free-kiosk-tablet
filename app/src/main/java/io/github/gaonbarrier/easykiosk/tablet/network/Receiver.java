@@ -27,6 +27,11 @@ public class Receiver extends AppCompatActivity implements Runnable {
     private itemDBOpenHelper itemDBOpenHelper;
     private optionDBOpenHelper optionDBOpenHelper;
 
+    public itemDBOpenHelper getItemDBOpenHelper() { return itemDBOpenHelper; }
+    public void setItemDBOpenHelper(itemDBOpenHelper itemDBOpenHelper) { this.itemDBOpenHelper = itemDBOpenHelper; }
+    public optionDBOpenHelper getOptionDBOpenHelper() { return optionDBOpenHelper; }
+    public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) { this.optionDBOpenHelper = optionDBOpenHelper; }
+
     public Receiver(){
         this.itemDBOpenHelper = new itemDBOpenHelper(getApplicationContext());
         this.optionDBOpenHelper = new optionDBOpenHelper(getApplicationContext());
