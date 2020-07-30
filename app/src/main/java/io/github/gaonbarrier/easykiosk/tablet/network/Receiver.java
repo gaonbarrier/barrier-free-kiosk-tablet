@@ -1,25 +1,13 @@
 package io.github.gaonbarrier.easykiosk.tablet.network;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
-import android.content.Context;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import android.content.Context;
-
-
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 
-public class Receiver extends AppCompatActivity implements Runnable {
+public class Receiver extends Thread {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
@@ -32,16 +20,6 @@ public class Receiver extends AppCompatActivity implements Runnable {
     public optionDBOpenHelper getOptionDBOpenHelper() { return optionDBOpenHelper; }
     public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) { this.optionDBOpenHelper = optionDBOpenHelper; }
 
-    public Receiver(){
-        this.itemDBOpenHelper = new itemDBOpenHelper(getApplicationContext());
-        this.optionDBOpenHelper = new optionDBOpenHelper(getApplicationContext());
-        //context값을 뭘로해야할까
-        //뭔가 잘못되어가는것같군
-        itemDBOpenHelper.open();
-        optionDBOpenHelper.open();
-        //getApplicationContext();
-    }
-
     @Override
     public void run() {
         try {
@@ -53,17 +31,36 @@ public class Receiver extends AppCompatActivity implements Runnable {
 
         while (!Thread.currentThread().isInterrupted()) {
             try {
+               /*
+                socket = serverSocket.accept();
+                bufReader =
+                        new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                String message = bufReader.readLine();
+                System.out.println("Client sent:" + message);
+
+                bufWriter =
+                        new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                bufWriter.write(message);
+                bufWriter.newLine();
+                bufWriter.flush();*/
+                //테스트코드
+
                 //client 접속 accept
                 socket = serverSocket.accept();
                 //client가 보낸 데이터 출력
                 bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String message = bufReader.readLine();
+                //무언가를 받아왔습니다 아저씨덜
                 JsonParser parser = new JsonParser();
                 JsonElement element = parser.parse(message);
                 String command = element.getAsJsonObject().get("Action").getAsString();
                 System.out.println("Command : "+ command);
                 System.out.println("Client sent:" + message);
+                //파셔로 그거 분석하고 테스트삼아 출력
                 switch(command){
+                    //command에 따라서 (Action 에 입력된 값에 따라서)
                     case "NewMenu":{
                         String Name = element.getAsJsonObject().get("Name").getAsString();
                         String Category = element.getAsJsonObject().get("Category").getAsString();
@@ -72,22 +69,25 @@ public class Receiver extends AppCompatActivity implements Runnable {
                         String Image = element.getAsJsonObject().get("Image").getAsString();
 
                         itemDBOpenHelper.insertColumn(Name,Category,PriceHot,PriceCold,Image);
+                        //새로운 메뉴 INSERT 명령 -> items Table에
                     }
-                    break;
+                        break;
                     case "DeleteMenu":{
                         String name = element.getAsJsonObject().get("Name").getAsString();
                         long id = itemDBOpenHelper.findID(name);
-
                         itemDBOpenHelper.deleteColumn(id);
+                        //이름만 따와서 ID를 찾고 그 ID 찾아서 지움
                     }
-                    break;
+                        break;
                     default : System.out.println("Error");
+                    //Action 값이 이상한거면 error -> 그냥 메시지 출력만 하고 ㅃㅃ2
                         break;
                 }
                 bufWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 bufWriter.write(message);
                 bufWriter.newLine();
                 bufWriter.flush();
+                //ㅅㅂ
             } catch (Exception e) {
                 e.printStackTrace();
             }

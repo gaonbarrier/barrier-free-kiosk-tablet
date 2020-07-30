@@ -46,6 +46,7 @@ public class itemDBOpenHelper {
 
     public void create(){
         mDBHelper.onCreate(mDB);
+        System.out.println("itemDB Open Helper Create");
     }
 
     public void close(){

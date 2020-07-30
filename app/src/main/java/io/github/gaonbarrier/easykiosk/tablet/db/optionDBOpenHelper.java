@@ -40,6 +40,16 @@ public class optionDBOpenHelper {
         return this;
     }
 
+    public void create(){
+        mDBHelper.onCreate(mDB);
+        System.out.println("option DB Helper create");
+    }
+
+    public void close(){
+        mDB.close();
+    }
+    //create, close 등등...
+
     // Insert DB
     public long insertColumn(String name, int amount){
         ContentValues values = new ContentValues();
