@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Receiver.getOptionDBOpenHelper().create();
         Receiver.serverCreate();
         //일단 Receiver랑 DB 선언하고 서버를 열어준다.
+        //맘에안드는 점 -> 똑같은 일 여러개 하는 것.
+        //Item과 Option을 같은 클래스에서 관리하면 안될까?
         /////////////////////////////////////////////
 
         //앞으로의 설계 방향
