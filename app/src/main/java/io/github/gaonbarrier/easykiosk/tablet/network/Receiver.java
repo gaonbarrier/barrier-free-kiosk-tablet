@@ -28,7 +28,7 @@ public class Receiver extends Thread {
                 @Override
                 public void run() {
                     while (true) {
-                        /** XXX 01. 첫번째. 서버가 할일 분담. 계속 접속받는것. */
+                        //서버는 계속 접속을 받는다.
                         Log.v("", "서버 대기중...");
                         try {
                             socket = serverSocket.accept();
@@ -44,7 +44,7 @@ public class Receiver extends Thread {
                             String command = element.getAsJsonObject().get("Action").getAsString();
                             System.out.println("Command : "+ command);
                             System.out.println("Client sent:" + message);
-                            //파셔로 그거 분석하고 테스트삼아 출력
+                            //파셔로 분석하고 테스트삼아 출력
                             switch(command){
                                 //command에 따라서 (Action 에 입력된 값에 따라서)
                                 case "NewMenu":{
