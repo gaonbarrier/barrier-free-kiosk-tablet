@@ -56,6 +56,8 @@ public class Receiver extends Thread {
 
                                     itemDBOpenHelper.insertColumn(Name,Category,PriceHot,PriceCold,Image);
                                     //새로운 메뉴 INSERT 명령 -> items Table에
+                                    //itemDBOpenHelper.Select();
+                                    //테스트용 SELECT * FROM items;
                                 }
                                 break;
                                 case "DeleteMenu":{

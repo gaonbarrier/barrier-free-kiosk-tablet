@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 public class itemDBOpenHelper {
     private static final String DATABASE_NAME = "InnerDatabase(SQLite).db";
@@ -96,6 +98,20 @@ public class itemDBOpenHelper {
         return mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
     }
 
+    public void Select(){
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            int _id = c.getInt(0);
+            String Name = c.getString(1);
+            String Category = c.getString(2);
+            String PriceHot = c.getString(3);
+            String PriceCold = c.getString(4);
+            String Image = c.getString(5);
+            Log.d("","_id:"+_id+",Name:"+Name
+                    +",Category:"+Category+",PriceHot:"+PriceHot+",PriceCold:"+PriceCold+",Image:"+Image);
+
+        }
+    }
     // sort by column
     public Cursor sortColumn(String sort){
         Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);
