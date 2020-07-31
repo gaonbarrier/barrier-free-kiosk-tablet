@@ -64,6 +64,14 @@ public class itemDBOpenHelper {
         values.put(itemDB.CreateDB.PRICEHOT, pricehot);
         values.put(itemDB.CreateDB.PRICECOLD, pricecold);
         values.put(itemDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return 0;
+            }
+        }
 
         return mDB.insert(itemDB.CreateDB._TABLENAME0, null, values);
     }
@@ -76,6 +84,15 @@ public class itemDBOpenHelper {
         values.put(itemDB.CreateDB.PRICEHOT, pricehot);
         values.put(itemDB.CreateDB.PRICECOLD, pricecold);
         values.put(itemDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return false;
+            }
+        }
+
         return mDB.update(itemDB.CreateDB._TABLENAME0, values, "_id=" + id, null) > 0;
     }
     //ID number 찾기

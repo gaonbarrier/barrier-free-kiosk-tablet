@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class optionDBOpenHelper {
     private static final String DATABASE_NAME = "InnerDatabase(SQLite).db";
@@ -55,7 +56,14 @@ public class optionDBOpenHelper {
         ContentValues values = new ContentValues();
         values.put(optionDB.CreateDB.NAME, name);
         values.put(optionDB.CreateDB.AMOUNT, amount);
-
+        Cursor c = mDB.query(optionDB.CreateDB._TABLENAME1, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return 0;
+            }
+        }
         return mDB.insert(optionDB.CreateDB._TABLENAME1, null, values);
     }
 
@@ -64,6 +72,14 @@ public class optionDBOpenHelper {
         ContentValues values = new ContentValues();
         values.put(optionDB.CreateDB.NAME, name);
         values.put(optionDB.CreateDB.AMOUNT, amount);
+        Cursor c = mDB.query(optionDB.CreateDB._TABLENAME1, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return false;
+            }
+        }
 
         return mDB.update(optionDB.CreateDB._TABLENAME1, values, "_id=" + id, null) > 0;
     }
