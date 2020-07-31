@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import io.github.gaonbarrier.easykiosk.tablet.db.itemDBOpenHelper;
 import io.github.gaonbarrier.easykiosk.tablet.db.optionDBOpenHelper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -201,4 +203,3 @@ public class Receiver extends Thread {
     //    e.printStackTrace();
     //}
 }
-

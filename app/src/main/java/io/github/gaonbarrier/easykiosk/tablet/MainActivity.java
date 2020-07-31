@@ -5,6 +5,13 @@ import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
+import android.content.Intent;
+import android.view.View;
+import io.github.gaonbarrier.easykiosk.tablet.network.*;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
+import io.github.gaonbarrier.easykiosk.tablet.network.*;
 
 public class MainActivity extends AppCompatActivity {
     private Receiver Receiver;
@@ -67,5 +74,21 @@ public class MainActivity extends AppCompatActivity {
         -> 즉 가능하면 Main에서 패러미터를 주는 방식으로 해야 함.
         * */
 
+        // NetworkSection nw = new NetworkSection();
+    }
+    public void onClick(View view)
+    {
+        Intent intent = new Intent(this, NormalActivity.class);
+        startActivity(intent);
+    }
+    public void onClick1(View view)
+    {
+        Intent intent = new Intent(this, SoundActivity.class);
+        startActivity(intent);
+    }
+    public void onClick2(View view)
+    {
+        Intent intent = new Intent(this, PracticeActivity.class);
+        startActivity(intent);
     }
 }
