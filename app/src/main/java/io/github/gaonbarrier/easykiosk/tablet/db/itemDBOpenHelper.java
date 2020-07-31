@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 public class itemDBOpenHelper {
     private static final String DATABASE_NAME = "InnerDatabase(SQLite).db";
@@ -25,6 +27,7 @@ public class itemDBOpenHelper {
         public void onCreate(SQLiteDatabase db){
             db.execSQL(itemDB.CreateDB._CREATE0);
         }
+        //Table 생성
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -45,11 +48,13 @@ public class itemDBOpenHelper {
 
     public void create(){
         mDBHelper.onCreate(mDB);
+        System.out.println("itemDB Open Helper Create");
     }
 
     public void close(){
         mDB.close();
     }
+    //create, close 등등...
 
     // Insert DB
     public long insertColumn(String name, String category , int pricehot, int pricecold, String image){
@@ -59,6 +64,14 @@ public class itemDBOpenHelper {
         values.put(itemDB.CreateDB.PRICEHOT, pricehot);
         values.put(itemDB.CreateDB.PRICECOLD, pricecold);
         values.put(itemDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return 0;
+            }
+        }
 
         return mDB.insert(itemDB.CreateDB._TABLENAME0, null, values);
     }
@@ -71,7 +84,21 @@ public class itemDBOpenHelper {
         values.put(itemDB.CreateDB.PRICEHOT, pricehot);
         values.put(itemDB.CreateDB.PRICECOLD, pricecold);
         values.put(itemDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return false;
+            }
+        }
+
         return mDB.update(itemDB.CreateDB._TABLENAME0, values, "_id=" + id, null) > 0;
+    }
+    //ID number 찾기
+    public long findID(String name){
+        Cursor c = mDB.rawQuery("SELECT id FROM items WHERE name = " + name + ";",null);
+        return c.getColumnIndex("_id");
     }
 
     // Delete All
@@ -88,6 +115,20 @@ public class itemDBOpenHelper {
         return mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
     }
 
+    public void Select(){
+        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            int _id = c.getInt(0);
+            String Name = c.getString(1);
+            String Category = c.getString(2);
+            String PriceHot = c.getString(3);
+            String PriceCold = c.getString(4);
+            String Image = c.getString(5);
+            Log.d("","_id:"+_id+",Name:"+Name
+                    +",Category:"+Category+",PriceHot:"+PriceHot+",PriceCold:"+PriceCold+",Image:"+Image);
+
+        }
+    }
     // sort by column
     public Cursor sortColumn(String sort){
         Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);
