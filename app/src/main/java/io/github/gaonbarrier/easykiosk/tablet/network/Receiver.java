@@ -14,7 +14,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Receiver extends Thread {
+public class Receiver {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
@@ -89,7 +89,7 @@ public class Receiver extends Thread {
 
                                         itemDBOpenHelper.insertColumn(Name, Category, PriceHot, PriceCold, Image);
                                         //새로운 메뉴 INSERT 명령 -> items Table에
-                                        //itemDBOpenHelper.Select();
+                                        //itemDBOpenHelper.SelectAll();
                                         //테스트용 SELECT * FROM items;
                                     }
                                     break;

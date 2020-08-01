@@ -1,22 +1,18 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
-import io.github.gaonbarrier.easykiosk.tablet.cart.Cart;
+import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import android.content.Intent;
 import android.view.View;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
 
 public class MainActivity extends AppCompatActivity {
     private Receiver Receiver;
     private Sender Sender;
-    private Cart Cart;
+    private CartLayout CartLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////
         //Cart나 item 객체 Section
         ////////////////////////////////////////
-        Cart = new Cart();
+        CartLayout = new CartLayout();
 
         /////////////////////////////////////////
         //DB & Server Section

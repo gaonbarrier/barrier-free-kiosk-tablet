@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import io.github.gaonbarrier.easykiosk.tablet.menu.item;
+
+import java.util.ArrayList;
 
 public class itemDBOpenHelper {
     private static final String DATABASE_NAME = "InnerDatabase(SQLite).db";
@@ -115,8 +118,22 @@ public class itemDBOpenHelper {
         return mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
     }
 
-    public void Select(){
-        Cursor c = mDB.query(itemDB.CreateDB._TABLENAME0, null, null, null, null, null, null);
+
+    public ArrayList<item> selectCategory(String Category){
+        Cursor c = selectColumns();
+        ArrayList<item> tmp = new ArrayList<>();
+        while(c.moveToNext()) {
+            if(c.getString(2).equals(Category)){
+                item temp = new item(c.getString(1), c.getString(2), c.getInt(3), c.getInt(4));
+                tmp.add(temp);
+            }
+        }
+        return tmp;
+    }
+
+    //얜 약간 테스트용.
+    public void SelectAll(){
+        Cursor c = selectColumns();
         while(c.moveToNext()){
             int _id = c.getInt(0);
             String Name = c.getString(1);
@@ -126,9 +143,10 @@ public class itemDBOpenHelper {
             String Image = c.getString(5);
             Log.d("","_id:"+_id+",Name:"+Name
                     +",Category:"+Category+",PriceHot:"+PriceHot+",PriceCold:"+PriceCold+",Image:"+Image);
-
         }
     }
+
+
     // sort by column
     public Cursor sortColumn(String sort){
         Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);
