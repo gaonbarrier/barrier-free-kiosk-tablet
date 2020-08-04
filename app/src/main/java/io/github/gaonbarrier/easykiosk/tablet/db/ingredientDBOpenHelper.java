@@ -49,5 +49,60 @@ public class ingredientDBOpenHelper {
     }
     public void close(){mDB.close();}
 
+    // Insert DB
+    public long insertColumn(String name, String ingredient, String image){
+        ContentValues values = new ContentValues();
+        values.put(ingredientDB.CreateDB.NAME, name);
+        values.put(ingredientDB.CreateDB.INGREDIENT,ingredient);
+        values.put(ingredientDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return 0;
+            }
+        }
 
+        return mDB.insert(ingredientDB.CreateDB._TABLENAME2, null, values);
+    }
+
+    // Update DB
+    public boolean updateColumn(long id, String name, String ingredient, String image){
+        ContentValues values = new ContentValues();
+        values.put(ingredientDB.CreateDB.NAME, name);
+        values.put(ingredientDB.CreateDB.INGREDIENT,ingredient);
+        values.put(ingredientDB.CreateDB.IMAGE, image);
+        Cursor c = mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            String Name = c.getString(1);
+            if(c.getString(1).equals(name)){
+                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+                return false;
+            }
+        }
+
+        return mDB.update(ingredientDB.CreateDB._TABLENAME2, values, "_id=" + id, null) > 0;
+    }
+
+    // Delete All
+    public void deleteAllColumns() {
+        mDB.delete(ingredientDB.CreateDB._TABLENAME2, null, null);
+    }
+
+    // Delete DB
+    public boolean deleteColumn(long id){
+        return mDB.delete(ingredientDB.CreateDB._TABLENAME2, "_id="+id, null) > 0;
+    }
+    // Select DB
+    public Cursor selectColumns(){
+        return mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
+    }
+
+
+
+    public Cursor sortColumn(String sort){
+        Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);
+        return c;
+    }
 }

@@ -5,8 +5,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import io.github.gaonbarrier.easykiosk.tablet.db.itemDBOpenHelper;
-import io.github.gaonbarrier.easykiosk.tablet.db.optionDBOpenHelper;
+import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -21,6 +20,8 @@ public class Receiver {
     private BufferedWriter bufWriter;
     private itemDBOpenHelper itemDBOpenHelper;
     private optionDBOpenHelper optionDBOpenHelper;
+    private ingredientDBOpenHelper ingredientDBOpenHelper;
+
 
     public itemDBOpenHelper getItemDBOpenHelper() {
         return itemDBOpenHelper;
@@ -34,9 +35,12 @@ public class Receiver {
         return optionDBOpenHelper;
     }
 
-    public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) {
-        this.optionDBOpenHelper = optionDBOpenHelper;
-    }
+    public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) { this.optionDBOpenHelper = optionDBOpenHelper; }
+
+    public ingredientDBOpenHelper getIngredientDBOpenHelper() { return ingredientDBOpenHelper; }
+
+    public void setIngredientDBOpenHelper(ingredientDBOpenHelper ingredientDBOpenHelper) { this.ingredientDBOpenHelper = ingredientDBOpenHelper; }
+
 
     public void serverCreate() {
         try {
@@ -130,6 +134,7 @@ public class Receiver {
             e.printStackTrace();
         }
     }
+    //밑에 친구는 내가 초창기에 짰던 쓰래기 코드
    /*@Override
     public void run() {
 

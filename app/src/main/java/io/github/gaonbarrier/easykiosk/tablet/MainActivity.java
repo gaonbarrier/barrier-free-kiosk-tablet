@@ -43,12 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
         Receiver.setItemDBOpenHelper(new itemDBOpenHelper(this));
         Receiver.setOptionDBOpenHelper(new optionDBOpenHelper(this));
+        Receiver.setIngredientDBOpenHelper(new ingredientDBOpenHelper(this));
         //Receiver에 DB manager 객채 선언
 
         Receiver.getItemDBOpenHelper().open();
         Receiver.getItemDBOpenHelper().create();
         Receiver.getOptionDBOpenHelper().open();
         Receiver.getOptionDBOpenHelper().create();
+        Receiver.getIngredientDBOpenHelper().open();
+        Receiver.getIngredientDBOpenHelper().create();
         //각 DB manager 객체에서 매니저를 열고 Create 작업을 해준다. 이미 Table이 존재한다면 어차피 Create는 자동으로 무시됨.
 
         Receiver.serverCreate();

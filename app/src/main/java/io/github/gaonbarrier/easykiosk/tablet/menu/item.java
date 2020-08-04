@@ -7,7 +7,7 @@ public class item {
     private String Category;
     private int PriceHot;
     private int PriceCold;
-    private ArrayList<Element> item;
+    private ArrayList<Element> elements;
     public item(String name, String Category, int PriceHot, int PriceCold){
         this.name = name;
         this.Category = Category;
@@ -23,5 +23,7 @@ public class item {
     public void setHotPrice(int hotPrice) { PriceHot = hotPrice; }
     public int getColdPrice() { return PriceCold; }
     public void setColdPrice(int coldPrice) { PriceCold = coldPrice; }
+    public ArrayList<Element> getElements() { return elements; }
+    public void setElements(ArrayList<Element> elements) { this.elements = elements; }
 
 }
