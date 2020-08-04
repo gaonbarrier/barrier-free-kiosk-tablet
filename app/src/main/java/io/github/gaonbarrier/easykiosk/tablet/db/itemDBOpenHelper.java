@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
+import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
 import io.github.gaonbarrier.easykiosk.tablet.menu.item;
 
 import java.util.ArrayList;
@@ -130,7 +130,6 @@ public class itemDBOpenHelper {
         }
         return tmp;
     }
-
     //얜 약간 테스트용.
     public void SelectAll(){
         Cursor c = selectColumns();
@@ -145,8 +144,6 @@ public class itemDBOpenHelper {
                     +",Category:"+Category+",PriceHot:"+PriceHot+",PriceCold:"+PriceCold+",Image:"+Image);
         }
     }
-
-
     // sort by column
     public Cursor sortColumn(String sort){
         Cursor c = mDB.rawQuery( "SELECT * FROM items ORDER BY " + sort + ";", null);

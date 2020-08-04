@@ -2,16 +2,18 @@ package io.github.gaonbarrier.easykiosk.tablet;
 
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
-import android.content.Intent;
-import android.view.View;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.view.View;
+
+
 public class MainActivity extends AppCompatActivity {
-    private Receiver Receiver;
-    private Sender Sender;
+    public static Receiver Receiver;
+    public static Sender Sender;
     private CartLayout CartLayout;
 
     @Override
@@ -37,40 +39,20 @@ public class MainActivity extends AppCompatActivity {
         /////////////////////////////////////////
         Receiver = new Receiver();
         Sender = new Sender();
-        //
-        itemDBOpenHelper itemDBOpenHelper = new itemDBOpenHelper(this);
-        optionDBOpenHelper optionDBOpenHelper = new optionDBOpenHelper(this);
-        Receiver.setItemDBOpenHelper(itemDBOpenHelper);
-        Receiver.setOptionDBOpenHelper(optionDBOpenHelper);
+        //Receiver와 Sender 선언
+
+        Receiver.setItemDBOpenHelper(new itemDBOpenHelper(this));
+        Receiver.setOptionDBOpenHelper(new optionDBOpenHelper(this));
+        //Receiver에 DB manager 객채 선언
+
         Receiver.getItemDBOpenHelper().open();
         Receiver.getItemDBOpenHelper().create();
         Receiver.getOptionDBOpenHelper().open();
         Receiver.getOptionDBOpenHelper().create();
+        //각 DB manager 객체에서 매니저를 열고 Create 작업을 해준다. 이미 Table이 존재한다면 어차피 Create는 자동으로 무시됨.
+
         Receiver.serverCreate();
-        //일단 Receiver랑 DB 선언하고 서버를 열어준다.
-        //맘에안드는 점 -> 똑같은 일 여러개 하는 것.
-        //Item과 Option을 같은 클래스에서 관리하면 안될까?
-        /////////////////////////////////////////////
-
-        //앞으로의 설계 방향
-        /*
-        무언가 주문한다 -> Sender를 써먹는다.
-        아마 액션 리스너 쪽에서 써먹지 않을까 싶음.
-
-        예상되는 issue
-        ->그래서 어떤 IP에 갓다줄건데?
-        -> 2002번 포트로 그냥 다 쏴버린다? 어케해야할까 이걸...
-
-        무언가 받아온다 -> Receiver를 써먹는다.
-        얘는 독립된 파츠로써 역할하는 것이라 생각 하는 게 좋을 듯.
-        그렇게 움직이도록 설계했음.
-
-        계층구조
-        Main Activity > Sender = Receiver = DB = others...
-        -> 즉 가능하면 Main에서 패러미터를 주는 방식으로 해야 함.
-        * */
-
-        // NetworkSection nw = new NetworkSection();
+        //서버를 열어준다.
     }
     public void onClick(View view)
     {
