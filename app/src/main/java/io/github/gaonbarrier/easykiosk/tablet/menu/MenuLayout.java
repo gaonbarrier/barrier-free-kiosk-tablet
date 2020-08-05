@@ -44,7 +44,7 @@ public class MenuLayout {//얘의 목적?
             //item 아재들 다 불러온다. 이 아재들 각각에게 Element 정보를 줘야한다.
             while(iterator1.hasNext()) {
                 while (c.moveToNext()) {
-                    //일단 생각ㄷ은 item 아재 하나가 ..... 아 씨발 좆 같네
+                    //일단 생각ㄷ은 item 아재 하나가 .....
                 }
             }
         }

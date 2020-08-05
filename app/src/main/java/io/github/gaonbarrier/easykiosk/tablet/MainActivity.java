@@ -1,5 +1,7 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
+import android.net.wifi.WifiManager;
+import android.util.Log;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
@@ -9,6 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.ByteOrder;
+import java.util.Enumeration;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         Sender = new Sender();
         //Receiver와 Sender 선언
 
+        //System.out.println(wifiIpAddress());
+
+
+
         Receiver.setItemDBOpenHelper(new itemDBOpenHelper(this));
         Receiver.setOptionDBOpenHelper(new optionDBOpenHelper(this));
         Receiver.setIngredientDBOpenHelper(new ingredientDBOpenHelper(this));
@@ -56,6 +70,25 @@ public class MainActivity extends AppCompatActivity {
 
         Receiver.serverCreate();
         //서버를 열어준다.
+    }
+
+    public String wifiIpAddress(){
+        WifiManager wifiManagerf = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        int ipAddress = wifiManagerf.getConnectionInfo().getIpAddress();
+        if(ByteOrder.nativeOrder().equals(ByteOrder.LITTLE_ENDIAN)){
+            ipAddress = Integer.reverseBytes(ipAddress);
+        }
+
+        byte[] ipByteArray = BigInteger.valueOf(ipAddress).toByteArray();
+
+        String ipAddressString;
+        try{
+            ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
+        }catch (UnknownHostException ex){
+            Log.e("WIFIIP","Unable to get host address.");
+            ipAddressString = null;
+        }
+        return ipAddressString;
     }
     public void onClick(View view)
     {
