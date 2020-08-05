@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //각 DB manager 객체에서 매니저를 열고 Create 작업을 해준다. 이미 Table이 존재한다면 어차피 Create는 자동으로 무시됨.
 
         Receiver.getItemDBOpenHelper().SelectAll();
+        Receiver.getIngredientDBOpenHelper().SelectAll();
         //테스트 아재
 
         Receiver.serverCreate();

@@ -55,14 +55,6 @@ public class ingredientDBOpenHelper {
         values.put(ingredientDB.CreateDB.NAME, name);
         values.put(ingredientDB.CreateDB.INGREDIENT,ingredient);
         values.put(ingredientDB.CreateDB.IMAGE, image);
-        Cursor c = mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
-        while(c.moveToNext()){
-            String Name = c.getString(1);
-            if(c.getString(1).equals(name)){
-                Log.d("","Name:"+Name+"가 이미 존재합니다.");
-                return 0;
-            }
-        }
 
         return mDB.insert(ingredientDB.CreateDB._TABLENAME2, null, values);
     }
@@ -97,6 +89,18 @@ public class ingredientDBOpenHelper {
     // Select DB
     public Cursor selectColumns(){
         return mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
+    }
+
+    public void SelectAll(){
+        Cursor c = selectColumns();
+        while(c.moveToNext()){
+            int _id = c.getInt(0);
+            String Name = c.getString(1);
+            String Ingredient = c.getString(2);
+            String Image = c.getString(3);
+            Log.d("","_id:"+_id+",Name:"+Name
+                    +",Ingredient:"+Ingredient+",Image:"+Image);
+        }
     }
 
 

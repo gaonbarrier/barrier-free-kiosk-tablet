@@ -3,8 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet.network;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -12,6 +11,8 @@ import com.google.gson.JsonParser;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Receiver {
     private ServerSocket serverSocket;
@@ -64,6 +65,7 @@ public class Receiver {
                             Log.v("", message);
 
                             JsonParser parser = new JsonParser();
+                            Gson gson = new Gson();
                             JsonElement element;
                             String command;
                             // input된 코드가 json이 아닐 경우 예외 처리
@@ -85,16 +87,34 @@ public class Receiver {
                                 switch (command) {
                                     //command에 따라서 (Action 에 입력된 값에 따라서)
                                     case "NewMenu": {
+                                        JsonObject ingredient = new JsonObject();
                                         String Name = element.getAsJsonObject().get("Name").getAsString();
                                         String Category = element.getAsJsonObject().get("Category").getAsString();
                                         int PriceHot = element.getAsJsonObject().get("PriceHot").getAsInt();
                                         int PriceCold = element.getAsJsonObject().get("PriceCold").getAsInt();
                                         String Image = element.getAsJsonObject().get("Image").getAsString();
 
+
                                         itemDBOpenHelper.insertColumn(Name, Category, PriceHot, PriceCold, Image);
                                         //새로운 메뉴 INSERT 명령 -> items Table에
                                         itemDBOpenHelper.SelectAll();
                                         //테스트용 SELECT * FROM items;
+
+                                        ingredient = element.getAsJsonObject().get("Ingredients").getAsJsonObject();
+                                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                                        map = (LinkedHashMap)gson.fromJson(ingredient.toString(),map.getClass());
+                                        System.out.println(Name);
+                                        for(String key :map.keySet()){
+                                            System.out.println(key + " ," + map.get(key));
+                                            ingredientDBOpenHelper.insertColumn(Name, key, map.get(key));
+                                        }
+
+                                        ingredientDBOpenHelper.SelectAll();
+                                    }
+                                    break;
+
+                                    case "NewMenuSet" : {
+
                                     }
                                     break;
                                     // 아이디 대신 이름을 넣고 있었음
@@ -111,7 +131,6 @@ public class Receiver {
                                     break;
                                     default:
                                         System.out.println("Error");
-                                        //Action 값이 이상한거면 error -> 그냥 메시지 출력만 하고 ㅃㅃ2
                                         break;
                                 }
                             } catch (SQLiteException e) {

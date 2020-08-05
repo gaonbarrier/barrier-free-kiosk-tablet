@@ -38,23 +38,35 @@ public class MenuLayout {//얘의 목적?
         //커서안에 짱박혀있는 Item 데이터베이스 아재들을 다 가져와서 카테고리 이름이 어떤 것이 있고 몇개가 있는지 알아내고 뽑아낸다
         //O(n*K), k = 카테고리 갯수 -> 상수취급
 
-
-        Iterator iterator = CategoryName.iterator();
         //어떤 아재들이 있는지 알았으니 그 아재들마다 각각 item들 정보, 각 item마다 element 정보를 받아야한다.
-        //c = MainActivity.Receiver.getIngredientDBOpenHelper().selectColumns();
+
         //커서에 이제 ingredient 아재들을 짱박아둔다.
 
         for(String data : CategoryName){
             Category temp = new Category(data, MainActivity.Receiver.getItemDBOpenHelper().selectCategory(data));
             System.out.println("temp 아재 카테고리 : " + temp.getCategoryName());
             System.out.println("temp 아재 안에 있는 거 : ");
+            /*Iterator iterator = temp.getItems().iterator();
+            while(iterator.hasNext()){
+
+            }*/
             for(item item : temp.getItems()){
                 System.out.println(item.getName() + " , " + item.getCategory() + " , " + item.getHotPrice() + " , " + item.getColdPrice());
+                for(Element Element : item.getElements()){
+                    c = MainActivity.Receiver.getIngredientDBOpenHelper().selectColumns();
+                    while(c.moveToNext()){
+                        if(item.getName().equals(c.getString(1))){
+                            Element = new Element(c.getString(1),c.getString(2));
+                            item.getElements().add(Element);
+                            System.out.println(Element.getName() + " , " + Element.getName());
+                        }
+                    }
+                }
+                for(Element Element : item.getElements()){
+                    System.out.println(Element.getName() + " , " + Element.getImage());
+                }
             }
         }
-
-
-
         /*while(iterator.hasNext()) {
             Category temp = new Category((String) iterator.next(), MainActivity.Receiver.getItemDBOpenHelper().selectCategory((String) iterator.next()));
             //Category라는 한 아재를 만든다. 그 아재에게는 카테고리 이름과 그 카테고리에 있는 item들 아재들이 다 들어간다.
