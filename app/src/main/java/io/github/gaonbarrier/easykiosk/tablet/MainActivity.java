@@ -3,6 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
+import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
     public static Sender Sender;
     private CartLayout CartLayout;
+    private MenuLayout MenuLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +40,13 @@ public class MainActivity extends AppCompatActivity {
         * 서버랑 데이터베이스 파트는 눈에 안보임 ㅇㅇ
         *
         * */
-
-        ////////////////////////////////////////
-        //Cart나 item 객체 Section
-        ////////////////////////////////////////
-        CartLayout = new CartLayout();
-
         /////////////////////////////////////////
         //DB & Server Section
         /////////////////////////////////////////
         Receiver = new Receiver();
         Sender = new Sender();
         //Receiver와 Sender 선언
-
+        //Static 아재들이기 때문에 우선순위 높게 설정
         //System.out.println(wifiIpAddress());
 
 
@@ -68,8 +64,16 @@ public class MainActivity extends AppCompatActivity {
         Receiver.getIngredientDBOpenHelper().create();
         //각 DB manager 객체에서 매니저를 열고 Create 작업을 해준다. 이미 Table이 존재한다면 어차피 Create는 자동으로 무시됨.
 
+        Receiver.getItemDBOpenHelper().SelectAll();
+        //테스트 아재
+
         Receiver.serverCreate();
         //서버를 열어준다.
+        ////////////////////////////////////////
+        //Cart나 item 객체 Section
+        ////////////////////////////////////////
+        CartLayout = new CartLayout();
+        MenuLayout = new MenuLayout();
     }
 
     public String wifiIpAddress(){

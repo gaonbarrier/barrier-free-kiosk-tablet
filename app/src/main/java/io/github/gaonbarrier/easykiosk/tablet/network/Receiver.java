@@ -90,11 +90,10 @@ public class Receiver {
                                         int PriceHot = element.getAsJsonObject().get("PriceHot").getAsInt();
                                         int PriceCold = element.getAsJsonObject().get("PriceCold").getAsInt();
                                         String Image = element.getAsJsonObject().get("Image").getAsString();
-                                        String Ingredients = element.getAsJsonObject().get("Ingredients").getAsString();
 
                                         itemDBOpenHelper.insertColumn(Name, Category, PriceHot, PriceCold, Image);
                                         //새로운 메뉴 INSERT 명령 -> items Table에
-                                        //itemDBOpenHelper.SelectAll();
+                                        itemDBOpenHelper.SelectAll();
                                         //테스트용 SELECT * FROM items;
                                     }
                                     break;
