@@ -46,23 +46,21 @@ public class MenuLayout {//얘의 목적?
             Category temp = new Category(data, MainActivity.Receiver.getItemDBOpenHelper().selectCategory(data));
             System.out.println("temp 아재 카테고리 : " + temp.getCategoryName());
             System.out.println("temp 아재 안에 있는 거 : ");
-            /*Iterator iterator = temp.getItems().iterator();
-            while(iterator.hasNext()){
 
-            }*/
             for(item item : temp.getItems()){
                 System.out.println(item.getName() + " , " + item.getCategory() + " , " + item.getHotPrice() + " , " + item.getColdPrice());
-                for(Element Element : item.getElements()){
+                    ArrayList<Element> tmp = new ArrayList<>();
+                    tmp.add(new Element(item.getName(),"123"));
                     c = MainActivity.Receiver.getIngredientDBOpenHelper().selectColumns();
                     while(c.moveToNext()){
                         if(item.getName().equals(c.getString(1))){
-                            Element = new Element(c.getString(1),c.getString(2));
-                            item.getElements().add(Element);
-                            System.out.println(Element.getName() + " , " + Element.getName());
+                            Element element = new Element(c.getString(2),c.getString(3));
+                            tmp.add(element);
                         }
                     }
-                }
+                    item.setElements(tmp);
                 for(Element Element : item.getElements()){
+                    System.out.println(item.getName() + "의 Element 정보 ");
                     System.out.println(Element.getName() + " , " + Element.getImage());
                 }
             }
