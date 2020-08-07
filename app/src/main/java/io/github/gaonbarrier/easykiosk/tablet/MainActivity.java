@@ -1,22 +1,32 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
-import io.github.gaonbarrier.easykiosk.tablet.cart.Cart;
+import android.net.wifi.WifiManager;
+import android.util.Log;
+import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
+import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
+import io.github.gaonbarrier.easykiosk.tablet.db.*;
+import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import android.content.Intent;
 import android.view.View;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
+
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.ByteOrder;
+import java.util.Enumeration;
+
 
 public class MainActivity extends AppCompatActivity {
-    private Receiver Receiver;
-    private Sender Sender;
-    private Cart Cart;
+    public static Receiver Receiver;
+    public static Sender Sender;
+    private CartLayout CartLayout;
+    private MenuLayout MenuLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,51 +40,60 @@ public class MainActivity extends AppCompatActivity {
         * 서버랑 데이터베이스 파트는 눈에 안보임 ㅇㅇ
         *
         * */
-
-        ////////////////////////////////////////
-        //Cart나 item 객체 Section
-        ////////////////////////////////////////
-        Cart = new Cart();
-
         /////////////////////////////////////////
         //DB & Server Section
         /////////////////////////////////////////
         Receiver = new Receiver();
         Sender = new Sender();
-        //
-        itemDBOpenHelper itemDBOpenHelper = new itemDBOpenHelper(this);
-        optionDBOpenHelper optionDBOpenHelper = new optionDBOpenHelper(this);
-        Receiver.setItemDBOpenHelper(itemDBOpenHelper);
-        Receiver.setOptionDBOpenHelper(optionDBOpenHelper);
+        //Receiver와 Sender 선언
+        //Static 아재들이기 때문에 우선순위 높게 설정
+        //System.out.println(wifiIpAddress());
+
+
+
+        Receiver.setItemDBOpenHelper(new itemDBOpenHelper(this));
+        Receiver.setOptionDBOpenHelper(new optionDBOpenHelper(this));
+        Receiver.setIngredientDBOpenHelper(new ingredientDBOpenHelper(this));
+        //Receiver에 DB manager 객채 선언
+
         Receiver.getItemDBOpenHelper().open();
         Receiver.getItemDBOpenHelper().create();
         Receiver.getOptionDBOpenHelper().open();
         Receiver.getOptionDBOpenHelper().create();
+        Receiver.getIngredientDBOpenHelper().open();
+        Receiver.getIngredientDBOpenHelper().create();
+        //각 DB manager 객체에서 매니저를 열고 Create 작업을 해준다. 이미 Table이 존재한다면 어차피 Create는 자동으로 무시됨.
+
+        Receiver.getItemDBOpenHelper().SelectAll();
+        Receiver.getIngredientDBOpenHelper().SelectAll();
+        //테스트 아재
+
         Receiver.serverCreate();
-        //일단 Receiver랑 DB 선언하고 서버를 열어준다.
-        //맘에안드는 점 -> 똑같은 일 여러개 하는 것.
-        //Item과 Option을 같은 클래스에서 관리하면 안될까?
-        /////////////////////////////////////////////
+        //서버를 열어준다.
+        ////////////////////////////////////////
+        //Cart나 item 객체 Section
+        ////////////////////////////////////////
+        CartLayout = new CartLayout();
+        MenuLayout = new MenuLayout();
+    }
 
-        //앞으로의 설계 방향
-        /*
-        무언가 주문한다 -> Sender를 써먹는다.
-        아마 액션 리스너 쪽에서 써먹지 않을까 싶음.
+    public String wifiIpAddress(){
+        WifiManager wifiManagerf = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        int ipAddress = wifiManagerf.getConnectionInfo().getIpAddress();
+        if(ByteOrder.nativeOrder().equals(ByteOrder.LITTLE_ENDIAN)){
+            ipAddress = Integer.reverseBytes(ipAddress);
+        }
 
-        예상되는 issue
-        ->그래서 어떤 IP에 갓다줄건데?
-        -> 2002번 포트로 그냥 다 쏴버린다? 어케해야할까 이걸...
+        byte[] ipByteArray = BigInteger.valueOf(ipAddress).toByteArray();
 
-        무언가 받아온다 -> Receiver를 써먹는다.
-        얘는 독립된 파츠로써 역할하는 것이라 생각 하는 게 좋을 듯.
-        그렇게 움직이도록 설계했음.
-
-        계층구조
-        Main Activity > Sender = Receiver = DB = others...
-        -> 즉 가능하면 Main에서 패러미터를 주는 방식으로 해야 함.
-        * */
-
-        // NetworkSection nw = new NetworkSection();
+        String ipAddressString;
+        try{
+            ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
+        }catch (UnknownHostException ex){
+            Log.e("WIFIIP","Unable to get host address.");
+            ipAddressString = null;
+        }
+        return ipAddressString;
     }
     public void onClick(View view)
     {

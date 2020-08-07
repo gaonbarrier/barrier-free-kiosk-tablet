@@ -20,9 +20,7 @@ public class Select{
     public void setisHot(boolean hot) { isHot = hot; }
     public int getAmount() { return amount; }
     public void setAmount(int amount) { this.amount = amount; }
-
     public void printAll(){
         System.out.println(getName() + " " + getAmount() + " " + getisHot() + " " + getPrice());
     }
-
 }

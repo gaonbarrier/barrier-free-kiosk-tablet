@@ -3,24 +3,26 @@ package io.github.gaonbarrier.easykiosk.tablet.network;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import io.github.gaonbarrier.easykiosk.tablet.db.itemDBOpenHelper;
-import io.github.gaonbarrier.easykiosk.tablet.db.optionDBOpenHelper;
+import com.google.gson.*;
+import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class Receiver extends Thread {
+public class Receiver {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
     private itemDBOpenHelper itemDBOpenHelper;
     private optionDBOpenHelper optionDBOpenHelper;
+    private ingredientDBOpenHelper ingredientDBOpenHelper;
+
 
     public itemDBOpenHelper getItemDBOpenHelper() {
         return itemDBOpenHelper;
@@ -34,9 +36,12 @@ public class Receiver extends Thread {
         return optionDBOpenHelper;
     }
 
-    public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) {
-        this.optionDBOpenHelper = optionDBOpenHelper;
-    }
+    public void setOptionDBOpenHelper(optionDBOpenHelper optionDBOpenHelper) { this.optionDBOpenHelper = optionDBOpenHelper; }
+
+    public ingredientDBOpenHelper getIngredientDBOpenHelper() { return ingredientDBOpenHelper; }
+
+    public void setIngredientDBOpenHelper(ingredientDBOpenHelper ingredientDBOpenHelper) { this.ingredientDBOpenHelper = ingredientDBOpenHelper; }
+
 
     public void serverCreate() {
         try {
@@ -60,6 +65,7 @@ public class Receiver extends Thread {
                             Log.v("", message);
 
                             JsonParser parser = new JsonParser();
+                            Gson gson = new Gson();
                             JsonElement element;
                             String command;
                             // input된 코드가 json이 아닐 경우 예외 처리
@@ -81,16 +87,34 @@ public class Receiver extends Thread {
                                 switch (command) {
                                     //command에 따라서 (Action 에 입력된 값에 따라서)
                                     case "NewMenu": {
+                                        JsonObject ingredient = new JsonObject();
                                         String Name = element.getAsJsonObject().get("Name").getAsString();
                                         String Category = element.getAsJsonObject().get("Category").getAsString();
                                         int PriceHot = element.getAsJsonObject().get("PriceHot").getAsInt();
                                         int PriceCold = element.getAsJsonObject().get("PriceCold").getAsInt();
                                         String Image = element.getAsJsonObject().get("Image").getAsString();
 
+
                                         itemDBOpenHelper.insertColumn(Name, Category, PriceHot, PriceCold, Image);
                                         //새로운 메뉴 INSERT 명령 -> items Table에
-                                        //itemDBOpenHelper.Select();
+                                        itemDBOpenHelper.SelectAll();
                                         //테스트용 SELECT * FROM items;
+
+                                        ingredient = element.getAsJsonObject().get("Ingredients").getAsJsonObject();
+                                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                                        map = (LinkedHashMap)gson.fromJson(ingredient.toString(),map.getClass());
+                                        System.out.println(Name);
+                                        for(String key :map.keySet()){
+                                            System.out.println(key + " ," + map.get(key));
+                                            ingredientDBOpenHelper.insertColumn(Name, key, map.get(key));
+                                        }
+
+                                        ingredientDBOpenHelper.SelectAll();
+                                    }
+                                    break;
+
+                                    case "NewMenuSet" : {
+
                                     }
                                     break;
                                     // 아이디 대신 이름을 넣고 있었음
@@ -107,7 +131,6 @@ public class Receiver extends Thread {
                                     break;
                                     default:
                                         System.out.println("Error");
-                                        //Action 값이 이상한거면 error -> 그냥 메시지 출력만 하고 ㅃㅃ2
                                         break;
                                 }
                             } catch (SQLiteException e) {
@@ -129,6 +152,7 @@ public class Receiver extends Thread {
             e.printStackTrace();
         }
     }
+    //밑에 친구는 내가 초창기에 짰던 쓰래기 코드
    /*@Override
     public void run() {
 

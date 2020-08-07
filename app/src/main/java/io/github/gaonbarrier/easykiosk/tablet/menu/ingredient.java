@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.item;
+package io.github.gaonbarrier.easykiosk.tablet.menu;
 
 import android.media.Image;
 

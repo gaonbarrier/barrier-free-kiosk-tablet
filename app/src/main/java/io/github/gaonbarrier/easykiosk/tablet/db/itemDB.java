@@ -15,7 +15,7 @@ public final class itemDB {
                 +NAME+" text not null , "
                 +CATEGORY+" text not null , "
                 +PRICEHOT+" integer not null , "
-                +PRICECOLD+" integer not null , "
+                +PRICECOLD+" integer not null ,"
                 +IMAGE+" blob not null );";
     }
 }
