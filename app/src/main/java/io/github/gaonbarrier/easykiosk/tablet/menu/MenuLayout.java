@@ -65,28 +65,7 @@ public class MenuLayout {//얘의 목적?
                 }
             }
         }
-        /*while(iterator.hasNext()) {
-            Category temp = new Category((String) iterator.next(), MainActivity.Receiver.getItemDBOpenHelper().selectCategory((String) iterator.next()));
-            //Category라는 한 아재를 만든다. 그 아재에게는 카테고리 이름과 그 카테고리에 있는 item들 아재들이 다 들어간다.
-            System.out.println("temp 아재 카테고리 : " + temp.getCategoryName());
-            //Iterator iterator1 = temp.getItems().iterator();
-            //while(iterator1.hasNext()){
-            //    System.out.println("temp 아재 안에 있는 아재들 : " + (String) iterator1.next().);
-            //}
-            System.out.println("temp 아재 안에 있는 거 : ");
-            for(item item : temp.getItems()){
-                System.out.println(item.getName() + " , " + item.getCategory() + " , " + item.getHotPrice() + " , " + item.getColdPrice());
-            }
 
-            //item 아재들 다 불러온다. 이 아재들 각각에게 Element 정보를 줘야한다.
-            /*while(iterator1.hasNext()) {
-                while (c.moveToNext()) {
-                    //일단 생각ㄷ은 item 아재 하나가 .....t
-                }
-            }*/
-        //}*/
-        //O(n*k)
-        //효율 지리구요
     }
     public void insert(){
 
