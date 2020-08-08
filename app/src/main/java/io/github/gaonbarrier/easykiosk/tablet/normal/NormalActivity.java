@@ -1,11 +1,15 @@
 package io.github.gaonbarrier.easykiosk.tablet.normal;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.tabs.TabLayout;
 import io.github.gaonbarrier.easykiosk.tablet.R;
 
 public class NormalActivity extends AppCompatActivity {
