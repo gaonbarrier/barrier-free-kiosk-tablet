@@ -59,10 +59,6 @@ public class optionDBOpenHelper {
         Cursor c = mDB.query(optionDB.CreateDB._TABLENAME1, null, null, null, null, null, null);
         while(c.moveToNext()){
             String Name = c.getString(1);
-            if(c.getString(1).equals(name)){
-                Log.d("","Name:"+Name+"가 이미 존재합니다.");
-                return 0;
-            }
         }
         return mDB.insert(optionDB.CreateDB._TABLENAME1, null, values);
     }
@@ -75,10 +71,6 @@ public class optionDBOpenHelper {
         Cursor c = mDB.query(optionDB.CreateDB._TABLENAME1, null, null, null, null, null, null);
         while(c.moveToNext()){
             String Name = c.getString(1);
-            if(c.getString(1).equals(name)){
-                Log.d("","Name:"+Name+"가 이미 존재합니다.");
-                return false;
-            }
         }
 
         return mDB.update(optionDB.CreateDB._TABLENAME1, values, "_id=" + id, null) > 0;
