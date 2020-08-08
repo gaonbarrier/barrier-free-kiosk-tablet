@@ -76,10 +76,6 @@ public class MenuLayout {//얘의 목적?
 
     public void setCategory(ArrayList<Category> category) { Category = category; }
 
-    public static int getCount() { return count; }
-
-    public static void setCount(int count) { MenuLayout.count = count; }
-
     public static String[] getCate_name() { return Cate_name; }
 
     public static void setCate_name(String[] cate_name) { Cate_name = cate_name; }
