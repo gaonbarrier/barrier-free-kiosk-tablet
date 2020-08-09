@@ -34,6 +34,7 @@ public class ContentsPagerAdapter extends FragmentStatePagerAdapter {
                 BOARD board = new BOARD(2); //화면은 불러와짐.
                 return board;
         }
+        // 이 아재들 중에 position의 목적이 도데체 뭘까?
     }
 
     @Override

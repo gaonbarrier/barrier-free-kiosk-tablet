@@ -72,6 +72,20 @@ public class BUTTON_CONTAINER extends LinearLayout {
         priceCold.setTextColor(Color.BLUE);
         priceCold.setTextSize(30);
     } //int형으로 불러올 시, String to int 반드시 해야함.
+    //이 아재들은 int형으로 패러미터를 가지는 게 좋을 것 같다는 판단.
+    private void PriceStyle(int PriceHot, int PriceCold){
+        TextView priceHot = findViewById(R.id.container_priceHot);      //뜨거운 음료 가격
+        TextView priceCold = findViewById(R.id.container_priceCold);    //아이스 음료 가격
+
+        priceHot.setText(String.valueOf(PriceHot)); // int가 될지 아니면 String이 될지는 코드 보고 님이 판단하기 바람.
+        priceHot.setTextColor(Color.RED);
+        priceHot.setTextSize(30);
+
+        priceCold.setText(String.valueOf(PriceCold)); // int가 될지 아니면 String이 될지는 코드 보고 님이 판단하기 바람.
+        priceCold.setTextColor(Color.BLUE);
+        priceCold.setTextSize(30);
+    }
+    //패러미터 집어넣은 아재
 
     private void GettingIcon() {
         ImageView hot_icon = findViewById(R.id.container_hot_icon);

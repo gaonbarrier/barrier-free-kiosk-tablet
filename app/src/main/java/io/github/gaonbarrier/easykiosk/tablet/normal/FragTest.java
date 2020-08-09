@@ -28,4 +28,5 @@ public class FragTest extends Fragment {
         textView.setText(testString);
         return view;
     }
+    //무슨 값을 입력받길 원하는진 모르겠음...
 }
