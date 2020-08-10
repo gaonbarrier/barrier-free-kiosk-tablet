@@ -21,23 +21,29 @@ import com.bumptech.glide.Glide;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
 import io.github.gaonbarrier.easykiosk.tablet.R;
+import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
+import io.github.gaonbarrier.easykiosk.tablet.menu.Element;
+import io.github.gaonbarrier.easykiosk.tablet.menu.item;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class BUTTON_CONTAINER extends LinearLayout {
     Activity mNormalAct;
 
-    public BUTTON_CONTAINER(Context context, @Nullable AttributeSet attrs, String Name, int i) {
+    public BUTTON_CONTAINER(Context context, @Nullable AttributeSet attrs, String Name, item item) {
         super(context, attrs);
-        init(context, Name, i);
+        init(context,Name , item);
     } //저기서 받은 i는 지금당장은 의미없는 i임. 다른걸로 대체해도 무방함.
 
-    public BUTTON_CONTAINER(Context context, String Name, int i) {
+   public BUTTON_CONTAINER(Context context, String Name, item item) {
         super(context);
-        init(context, Name, i);
+       init(context, Name, item);
     }
 
-    private void init(Context context, String Name, int check) {
+    private void init(Context context, String Name, item item) {
         //check도 원래는 배경때문에 쓸라다가 지금 못 쓰게 생김. 가서 다른 걸로 활용하길 바람.
         BUTTONS buttons = new BUTTONS(context, Name, 0.15); //create Buttons for Product
 
@@ -45,7 +51,7 @@ public class BUTTON_CONTAINER extends LinearLayout {
         inflater.inflate(R.layout.button_container, this, true);              //붙이는 용도임. 이거 먼저해두고 나서 findviewById를 써야 null호출 안 일어남.
 
         LinearLayout container_product = (LinearLayout) findViewById(R.id.container_product);   //판매 음료가 나타날 자리
-        PriceStyle();                                                   //가격 불러오는 겁니다.
+        PriceStyle(item.getHotPrice(),item.getColdPrice());                                                   //가격 불러오는 겁니다.
         GettingIcon();                                                  //icon 불러오는 겁니다.
 
         container_product.addView(buttons);                             //좌측 버튼들 끗!
@@ -53,25 +59,14 @@ public class BUTTON_CONTAINER extends LinearLayout {
         LinearLayout container_element = (LinearLayout) findViewById(R.id.container_element);
 
         BUTTONS elementButton;
-        for (int i = 0; i < 5; i++) {
-            elementButton = new BUTTONS(context, "test", 0.125);
+        for(int i = 1; i < item.getElements().size(); i++){
+            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), 0.125);
             elementButton.setPadding(15, 15, 15, 15);
             container_element.addView(elementButton);
-        } //여기가 그 중요한 재료가 들어갈 자리임. 개수는 매번 변해야할 거임.
+        }
+
     }
 
-    private void PriceStyle() {
-        TextView priceHot = findViewById(R.id.container_priceHot);      //뜨거운 음료 가격
-        TextView priceCold = findViewById(R.id.container_priceCold);    //아이스 음료 가격
-
-        priceHot.setText("10000"); // int가 될지 아니면 String이 될지는 코드 보고 님이 판단하기 바람.
-        priceHot.setTextColor(Color.RED);
-        priceHot.setTextSize(30);
-
-        priceCold.setText("20000"); // int가 될지 아니면 String이 될지는 코드 보고 님이 판단하기 바람.
-        priceCold.setTextColor(Color.BLUE);
-        priceCold.setTextSize(30);
-    } //int형으로 불러올 시, String to int 반드시 해야함.
     //이 아재들은 int형으로 패러미터를 가지는 게 좋을 것 같다는 판단.
     private void PriceStyle(int PriceHot, int PriceCold){
         TextView priceHot = findViewById(R.id.container_priceHot);      //뜨거운 음료 가격

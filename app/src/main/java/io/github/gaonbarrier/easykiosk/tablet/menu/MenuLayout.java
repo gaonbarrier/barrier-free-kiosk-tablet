@@ -1,5 +1,6 @@
 package io.github.gaonbarrier.easykiosk.tablet.menu;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import io.github.gaonbarrier.easykiosk.tablet.db.itemDBOpenHelper;
@@ -23,11 +24,17 @@ public class MenuLayout {//얘의 목적?
     private ArrayList<Category> Category;
     //
     public static String Cate_name[];
+    private Context context;
 
     public MenuLayout(){
+
         Category = new ArrayList<Category>();
         //커피, 차, 아이스크림 같은 카테고리\
         createCategory(); //전체 DB 생성. 시간 좀 걸릴거임.
+
+
+
+
 
 
         /*for(int i = 0; i<Category.size(); i++){
@@ -36,6 +43,9 @@ public class MenuLayout {//얘의 목적?
         for(Category category : Category){
             category.getCategoryName();
         }*/
+    }
+
+    public MenuLayout(Context context){
 
     }
     public void createCategory(){
