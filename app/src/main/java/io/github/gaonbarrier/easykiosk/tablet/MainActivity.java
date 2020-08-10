@@ -3,7 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
-import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
+import io.github.gaonbarrier.easykiosk.tablet.menu.getData;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
@@ -15,18 +15,15 @@ import android.view.View;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.util.Enumeration;
 
 
 public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
     public static Sender Sender;
     private CartLayout CartLayout;
-    private MenuLayout MenuLayout;
+    private getData MenuLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         //Cart나 item 객체 Section
         ////////////////////////////////////////
         CartLayout = new CartLayout();
-        MenuLayout = new MenuLayout();
+        MenuLayout = new getData();
     }
 
     public String wifiIpAddress(){
@@ -98,16 +95,16 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view)
     {
         Intent intent = new Intent(this, NormalActivity.class);
-        startActivity(intent);
+        startActivity(intent); //버튼클릭시 노말모드로 이동시켜줌
     }
     public void onClick1(View view)
     {
         Intent intent = new Intent(this, SoundActivity.class);
-        startActivity(intent);
+        startActivity(intent); //버튼클릭시 음성모드로 이동시켜줌
     }
     public void onClick2(View view)
     {
         Intent intent = new Intent(this, PracticeActivity.class);
-        startActivity(intent);
+        startActivity(intent); //버튼클릭시 연습모드로 이동시켜줌
     }
 }

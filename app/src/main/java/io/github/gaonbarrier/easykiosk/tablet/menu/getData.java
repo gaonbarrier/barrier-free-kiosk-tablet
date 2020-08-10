@@ -1,15 +1,19 @@
 package io.github.gaonbarrier.easykiosk.tablet.menu;
 
+import android.app.ActionBar;
 import android.database.Cursor;
+import android.widget.TableLayout;
+import com.google.android.material.tabs.TabLayout;
 import io.github.gaonbarrier.easykiosk.tablet.db.itemDBOpenHelper;
 import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
 import io.github.gaonbarrier.easykiosk.tablet.network.Receiver;
+import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class MenuLayout {//얘의 목적?
+public class getData {//얘의 목적?
     //귀찮은 작업을 하기 싫어서?
     //Menu 레이아웃을 여기다 구현해서 갓다 붙히는게 좋지 않을까???
     //모듈화 ㄱ
@@ -20,13 +24,10 @@ public class MenuLayout {//얘의 목적?
     * coffee, Tea 각각이 각 Menu ArrayList 를 만드는게 좋을까?
     * */
     private ArrayList<Category> Category;
-    public MenuLayout(){
+    public getData(){
         Category = new ArrayList<Category>();
         //커피, 차, 아이스크림 같은 카테고리
         createCategory();
-
-
-
     }
     public void createCategory(){
         ArrayList<String> CategoryName = new ArrayList<>();
@@ -70,8 +71,19 @@ public class MenuLayout {//얘의 목적?
                     System.out.println(Element.getName() + " , " + Element.getImage());
                 }
             }
+            Category.add(temp);
         }
+
     }
+
+    public ArrayList<io.github.gaonbarrier.easykiosk.tablet.menu.Category> getCategory() {
+        return Category;
+    }
+
+    public void setCategory(ArrayList<io.github.gaonbarrier.easykiosk.tablet.menu.Category> category) {
+        Category = category;
+    }
+
     public void insert(){
 
     }
