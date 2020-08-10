@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import io.github.gaonbarrier.easykiosk.tablet.MAKERS.BOARD;
 import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,12 @@ public class ContentsPagerAdapter extends FragmentStatePagerAdapter {
         this.mPageCount = mPageCount;
         this.category = category;
     }
-
     @NonNull
+    @NotNull
     @Override
-    public Fragment getItem(Category Category, int Size) {
-       BOARD a = new BOARD(Category ,Size);
-
-        // 이 아재들 중에 position의 목적이 도데체 뭘까?
+    public Fragment getItem(int position) {
+        BOARD a = new BOARD(category.get(position));
+        return a;
     }
     //패러미터 뭘로할까
     /*@Override

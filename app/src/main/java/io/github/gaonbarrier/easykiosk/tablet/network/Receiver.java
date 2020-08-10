@@ -7,6 +7,7 @@ import com.google.gson.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -127,6 +128,7 @@ public class Receiver {
                                             int _id = cursor.getInt(0);
                                             itemDBOpenHelper.deleteColumn(_id);
                                         }
+                                        //NormalActivity -> OnCreate()
                                     }
                                     break;
                                     default:

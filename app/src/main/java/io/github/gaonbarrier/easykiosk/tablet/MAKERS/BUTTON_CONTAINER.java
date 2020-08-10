@@ -36,7 +36,7 @@ public class BUTTON_CONTAINER extends LinearLayout {
     public BUTTON_CONTAINER(Context context, @Nullable AttributeSet attrs, String Name, item item) {
         super(context, attrs);
         init(context,Name , item);
-    } //저기서 받은 i는 지금당장은 의미없는 i임. 다른걸로 대체해도 무방함.
+    }
 
    public BUTTON_CONTAINER(Context context, String Name, item item) {
         super(context);
@@ -44,7 +44,7 @@ public class BUTTON_CONTAINER extends LinearLayout {
     }
 
     private void init(Context context, String Name, item item) {
-        //check도 원래는 배경때문에 쓸라다가 지금 못 쓰게 생김. 가서 다른 걸로 활용하길 바람.
+
         BUTTONS buttons = new BUTTONS(context, Name, 0.15); //create Buttons for Product
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
