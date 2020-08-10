@@ -18,6 +18,15 @@ public class getData {//얘의 목적?
         createCategory();
 
     }
+
+    public ArrayList<io.github.gaonbarrier.easykiosk.tablet.menu.Category> getCategory() {
+        return Category;
+    }
+
+    public void setCategory(ArrayList<io.github.gaonbarrier.easykiosk.tablet.menu.Category> category) {
+        Category = category;
+    }
+
     public void createCategory(){
         ArrayList<String> CategoryName = new ArrayList<>();
         //기계 입장에서는 데베 테이블 던져줘봐야 이게 뭐지? 먹는건가 소리도 못한다. 즉 데베 테이블안에 어떤 카테고리가 있는지
@@ -60,6 +69,7 @@ public class getData {//얘의 목적?
                     System.out.println(Element.getName() + " , " + Element.getImage());
                 }
             }
+            Category.add(temp);
         }
 
     }
