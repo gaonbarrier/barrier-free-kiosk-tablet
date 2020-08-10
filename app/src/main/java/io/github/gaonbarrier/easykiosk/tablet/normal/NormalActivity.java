@@ -14,7 +14,7 @@ import io.github.gaonbarrier.easykiosk.tablet.menu.getData;
 public class NormalActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
-    private io.github.gaonbarrier.easykiosk.tablet.menu.getData getData;
+    private io.github.gaonbarrier.easykiosk.tablet.menu.getData getData; //getData 클래스를 호출
 
 /*
     private FragTest bestFrag;
@@ -28,13 +28,14 @@ public class NormalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nor);
-        getData = new getData();
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_lay);
-        for(Category c : getData.getCategory()) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setText(c.getCategoryName());
-            tabLayout.addTab(tab);
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        getData = new getData(); //getData 생성자 호출
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_lay); //tab_lay 이라는 아이디를 가진 xml 안의 tab layout 과 연결
+        for(Category c : getData.getCategory()) { //0부터 category 까지 카테고리내용을 가져옴
+            TabLayout.Tab tab = tabLayout.newTab(); //탭 생성
+            tab.setText(c.getCategoryName()); //카테고리 이름을 가져와서 설정해줌
+            tabLayout.addTab(tab); //생성한 탭을 추가
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() { //리스너 생성
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) { //상태가 선택할 때
 

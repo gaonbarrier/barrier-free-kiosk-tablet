@@ -18,7 +18,7 @@ public class getData {//얘의 목적?
         createCategory();
 
     }
-
+    //?????? 왜 get set했는지 몰라?
     public ArrayList<io.github.gaonbarrier.easykiosk.tablet.menu.Category> getCategory() {
         return Category;
     }
