@@ -3,7 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
-import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
+import io.github.gaonbarrier.easykiosk.tablet.menu.getData;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
@@ -15,18 +15,15 @@ import android.view.View;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.util.Enumeration;
 
 
 public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
     public static Sender Sender;
     private CartLayout CartLayout;
-    private MenuLayout MenuLayout;
+    private getData getData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         //Cart나 item 객체 Section
         ////////////////////////////////////////
         CartLayout = new CartLayout();
-        MenuLayout = new MenuLayout();
+        getData = new getData();
     }
 
     public String wifiIpAddress(){
