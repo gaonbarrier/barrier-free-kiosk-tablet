@@ -1,7 +1,10 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
+import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Button;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.menu.getData;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
@@ -29,6 +32,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        Point DisplaySize = getScreenfullSize.getScreenfullSize(this);
+
+        //System.out.println("Dis sizeX:"+DisplaySize.x);
+
+        Point size = ImageSize.init(DisplaySize.x, 0.3, 0.6 );
+        Button btn1 = (Button)findViewById(R.id.btn1);
+        Button btn2 = (Button)findViewById(R.id.btn2);
+        Button btn3 = (Button)findViewById(R.id.btn3);
+        btn1.setWidth(size.x);
+        btn1.setHeight(size.y);
+        btn2.setWidth(size.x);
+        btn2.setHeight(size.y);
+        btn3.setWidth(size.x);
+        btn3.setHeight(size.y);
+        Log.d("size", "size"+size);
 
         /*
         * 그래서 일단 어떻게 할 생각이냐?
@@ -92,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return ipAddressString;
     }
+
     public void onClick(View view)
     {
         Intent intent = new Intent(this, NormalActivity.class);

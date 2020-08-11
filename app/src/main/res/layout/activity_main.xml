@@ -15,18 +15,20 @@
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@+id/lay2">
 
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:background="@android:color/transparent"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:srcCompat="@drawable/order"
-            android:onClick="onClick"/>
+        <Button
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:text="주문"
+                android:textSize="60dp"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold"
+                android:onClick="onClick"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,18 +37,20 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:background="@android:color/transparent"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:srcCompat="@drawable/tts"
-            android:onClick="onClick1" />
+        <Button
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:text="음성"
+                android:textSize="60dp"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold"
+                android:onClick="onClick1"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -56,19 +60,20 @@
         android:layout_toRightOf="@+id/lay2"
         android:layout_centerInParent="true">
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:background="@android:color/transparent"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-
-            android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:srcCompat="@drawable/practice"
-            android:onClick="onClick2"/>
+        <Button
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:text="연습"
+                android:textSize="60dp"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold"
+                android:onClick="onClick2"/>
     </RelativeLayout>
 
     <ImageView

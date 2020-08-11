@@ -1,5 +1,6 @@
 package io.github.gaonbarrier.easykiosk.tablet.normal;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class NormalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nor);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         getData = new getData(); //getData 생성자 호출
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_lay); //tab_lay 이라는 아이디를 가진 xml 안의 tab layout 과 연결

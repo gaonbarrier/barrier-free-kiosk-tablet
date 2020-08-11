@@ -3,9 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorDark">#000000</color>
     <color name="colorChoco">#443731</color>
+    <color name="colorBrick">#723838</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBackground">#F7F3E8</color>
-    <color name="colorFont">#75675A</color>
+    <color name="colorFont">#808080</color>
     <color name="colorWhite">#ffffff</color>
     <drawable name="bg_select">#FFCE31</drawable>
     <drawable name="bg">#EEEEEE</drawable>
