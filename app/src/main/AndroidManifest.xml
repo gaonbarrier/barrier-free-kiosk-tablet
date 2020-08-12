@@ -27,7 +27,9 @@
         <activity android:name=".MainActivity">
         </activity>
 
-        <activity android:name=".normal.NormalActivity">
+        <activity
+                android:name=".normal.NormalActivity"
+        >
         </activity>
 
         <activity android:name=".SoundActivity">

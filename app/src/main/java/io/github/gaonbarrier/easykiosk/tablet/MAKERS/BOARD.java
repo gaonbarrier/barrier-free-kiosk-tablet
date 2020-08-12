@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import io.github.gaonbarrier.easykiosk.tablet.R;
 import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
-import io.github.gaonbarrier.easykiosk.tablet.menu.item;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class BOARD extends Fragment {
         mNormalAct = NormalActivity._NormalActivity;
 
         for (int i = 0; i < category.getItems().size(); i++) {
-            BUTTON_CONTAINER button_container = new BUTTON_CONTAINER(mNormalAct, category.getItems().get(i).getName(),category.getItems().get(i));
+            BUTTON_CONTAINER button_container = new BUTTON_CONTAINER(mNormalAct,category.getItems().get(i));
             LinearLayout con = (LinearLayout) view.findViewById(R.id.cate_fragment);
             con.addView(button_container);
         } //버튼의 개수, 이름을 모두 받아야 가능함.

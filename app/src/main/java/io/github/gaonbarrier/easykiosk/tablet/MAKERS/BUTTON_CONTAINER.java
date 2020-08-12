@@ -4,48 +4,62 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
 import io.github.gaonbarrier.easykiosk.tablet.R;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Element;
+import io.github.gaonbarrier.easykiosk.tablet.cart.Select;
 import io.github.gaonbarrier.easykiosk.tablet.menu.item;
 import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
-import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
+
 
 public class BUTTON_CONTAINER extends LinearLayout {
     Activity mNormalAct;
 
-    public BUTTON_CONTAINER(Context context, @Nullable AttributeSet attrs, String Name, item item) {
+    public BUTTON_CONTAINER(Context context, @Nullable AttributeSet attrs, item item) {
         super(context, attrs);
-        init(context,Name , item);
+        init(context, item);
     }
 
-   public BUTTON_CONTAINER(Context context, String Name, item item) {
+   public BUTTON_CONTAINER(Context context, item item) {
         super(context);
-       init(context, Name, item);
+       init(context, item);
     }
 
-    private void init(Context context, String Name, item item) {
+    private void init(Context context, item item) {
 
-        BUTTONS buttons = new BUTTONS(context, Name, 0.15); //create Buttons for Product
+        BUTTONS buttons = new BUTTONS(context, item.getName(), item.getElements().get(0).getImage(),0.15); //create Buttons for Product
+        buttons.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               /*if(item.getColdPrice() != 0 && item.getHotPrice() != 0){
+                    System.out.println("팝업 아재 만듭니다");
+                    //뜨아 vs 아아 선택
+                   //그래서 몇개 살건가-> 이건 나중에
+                   //선택하게 함 -> 장바구니에 일단 짱박는다.
+
+                }
+               else{
+                   //선택하게함.
+               }*/
+                Select select = new Select(item.getName(), item.getHotPrice(), true, 1);
+                NormalActivity.cartLayout.getCartList().add(select);
+                for(Select temp : NormalActivity.cartLayout.getCartList()){
+                    System.out.println(temp.getName() + " , " + temp.getPrice() + " , " + temp.getAmount());
+                }
+            }
+        });
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.button_container, this, true);              //붙이는 용도임. 이거 먼저해두고 나서 findviewById를 써야 null호출 안 일어남.
@@ -60,7 +74,7 @@ public class BUTTON_CONTAINER extends LinearLayout {
 
         BUTTONS elementButton;
         for(int i = 1; i < item.getElements().size(); i++){
-            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), 0.125);
+            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), item.getElements().get(i).getImage(),0.125);
             elementButton.setPadding(15, 15, 15, 15);
             container_element.addView(elementButton);
         }
