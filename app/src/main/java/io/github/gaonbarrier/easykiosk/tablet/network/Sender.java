@@ -45,9 +45,9 @@ public class Sender {
     public void sendData(String json){
         try {
             //서버 접속
-            Socket socket = new Socket("127.0.0.1", 2002);
+            Socket socket = new Socket("182.161.149.11", 2002);
             //Socket socket = new Socket("182.161.149.11", 2002);
-            //Socket socket = new Socket("192.168.0.24", 2002);
+            //Socket socket = new Socket("192.168.0.78", 2002);
             //192는 집에서 작업할 때 사용함. 127은 로컬로 작업할 때 사용함.
             //Server에 보낼 데이터
             BufferedWriter bufWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

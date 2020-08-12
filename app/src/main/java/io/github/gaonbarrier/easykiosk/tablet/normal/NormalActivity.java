@@ -112,6 +112,7 @@ public class NormalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String json = MainActivity.Sender.orderToJSON(NormalActivity.cartLayout.getCartList());
                 System.out.println(json);
+                MainActivity.Sender.sendData(json);
                 NormalActivity.cartLayout.getCartList().clear();
             }
         });

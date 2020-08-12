@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Receiver.getIngredientDBOpenHelper().SelectAll();
         //테스트 아재
 
-        Receiver.serverCreate();
+       Receiver.serverCreate();
         //서버를 열어준다.
         ////////////////////////////////////////
         //Cart나 item 객체 Section
