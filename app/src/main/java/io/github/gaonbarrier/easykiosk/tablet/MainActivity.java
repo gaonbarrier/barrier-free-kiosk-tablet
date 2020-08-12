@@ -24,7 +24,7 @@ import java.util.Enumeration;
 
 public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
-    public static Sender Sender;
+    //public static Sender Sender;
     private CartLayout CartLayout;
     private MenuLayout MenuLayout;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //DB & Server Section
         /////////////////////////////////////////
         Receiver = new Receiver();
-        Sender = new Sender();
+        //Sender = new Sender();
         //Receiver와 Sender 선언
         //Static 아재들이기 때문에 우선순위 높게 설정
         //System.out.println(wifiIpAddress());

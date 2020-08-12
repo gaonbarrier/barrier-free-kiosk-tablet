@@ -21,6 +21,7 @@ import io.github.gaonbarrier.easykiosk.tablet.R;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
 import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
+import io.github.gaonbarrier.easykiosk.tablet.network.Sender;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,8 @@ public class NormalActivity extends AppCompatActivity {
     private ContentsPagerAdapter mContentPagerAdapter;
     //이 아재도 잘은 모르겠음.
 
+    private Sender sender;
+
     public static MenuLayout menuLayout;
     public static CartLayout cartLayout;
     //솔직히 맘같에선 밑에 처리들을 전부 menuLayout 아재가 다 처리햇으면 좋겠음. 언제든 바꿀 수 있게 위 아재들을 field에 좀 짱박아둘 생각.
@@ -69,6 +72,7 @@ public class NormalActivity extends AppCompatActivity {
 
         menuLayout = new MenuLayout();
         cartLayout = new CartLayout();
+        sender = new Sender();
 
         for(Category category : menuLayout.getCategory()){
             mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));
@@ -110,9 +114,9 @@ public class NormalActivity extends AppCompatActivity {
         resultBotton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String json = MainActivity.Sender.orderToJSON(NormalActivity.cartLayout.getCartList());
+                String json = sender.orderToJSON(NormalActivity.cartLayout.getCartList());
                 System.out.println(json);
-                MainActivity.Sender.sendData(json);
+                sender.sendData(json);
                 NormalActivity.cartLayout.getCartList().clear();
             }
         });
