@@ -20,6 +20,7 @@ import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
 import io.github.gaonbarrier.easykiosk.tablet.Normal.BUTTONS;
 import io.github.gaonbarrier.easykiosk.tablet.NormalActivity;
 import io.github.gaonbarrier.easykiosk.tablet.R;
+import io.github.gaonbarrier.easykiosk.tablet.VoiceActivity;
 
 public class Button extends LinearLayout {
     Activity mActivity;
@@ -39,16 +40,6 @@ public class Button extends LinearLayout {
         productButtons.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-               /*if(item.getColdPrice() != 0 && item.getHotPrice() != 0){
-                    System.out.println("팝업 아재 만듭니다");
-                    //뜨아 vs 아아 선택
-                   //그래서 몇개 살건가-> 이건 나중에
-                   //선택하게 함 -> 장바구니에 일단 짱박는다.
-
-                }
-               else{
-                   //선택하게함.
-               }*/
                 Select select = new Select(item.getName(), item.getHotPrice(), true, 1);
                 MainActivity.Cart.getCartList().add(select);
                 for(Select temp : MainActivity.Cart.getCartList()){
@@ -67,10 +58,27 @@ public class Button extends LinearLayout {
 
         LinearLayout container_element = (LinearLayout) findViewById(R.id.container_element);
 
-        BUTTONS elementButton; //재료버튼
-        for(int i = 1; i < item.getElements().size(); i++){
-            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), loading,0.125);
-            elementButton.setPadding(15, 15, 15, 15);
+        Menu elementButton; //재료버튼
+        //큰 차이가 나는 아재는 이녀석.
+        //context마다 차이를 두고싶다만?
+        if(mActivity.equals(NormalActivity._NormalActivity)) {
+            for (int i = 1; i < item.getElements().size(); i++) {
+                elementButton = new Menu(context, mActivity, item.getElements().get(i).getName(), loading, 0.125);
+                elementButton.setPadding(15, 15, 15, 15);
+                container_element.addView(elementButton);
+            }
+        }
+        else if(mActivity.equals(VoiceActivity._VoiceActivity)){
+            elementButton = new Menu(context, mActivity, "재료설명버튼", loading, 0.15);
+            elementButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println(item.getName() + "의 재료는 다음과 같습니다. : ");
+                    for(int i = 1; i < item.getElements().size(); i++){
+                        System.out.println(item.getElements().get(i).getName());
+                    }
+                }
+            });
             container_element.addView(elementButton);
         }
     }
