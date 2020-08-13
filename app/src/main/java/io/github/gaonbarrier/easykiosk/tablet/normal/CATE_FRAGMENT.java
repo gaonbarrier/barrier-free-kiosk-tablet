@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.MAKERS;
+package io.github.gaonbarrier.easykiosk.tablet.normal;
 
 import android.content.Context;
 import android.graphics.Color;

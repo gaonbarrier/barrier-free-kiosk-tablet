@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet.voice;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,16 +26,6 @@ public class ContentsPagerAdapter extends FragmentStatePagerAdapter {
         BOARD a = new BOARD(category.get(position));
         return a;
     }
-    //패러미터 뭘로할까
-    /*@Override
-    public Frag getItem(String CategoryName, int size) {
-
-         String CategoryName
-         int size
-
-        BOARD a = new BOARD(CategoryName,size);
-        return a;
-    }*/
 
     @Override
     public int getCount() {

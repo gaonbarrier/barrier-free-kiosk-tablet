@@ -1,26 +1,21 @@
-package io.github.gaonbarrier.easykiosk.tablet.MAKERS;
+package io.github.gaonbarrier.easykiosk.tablet.normal;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.*;
 
 import androidx.annotation.Nullable;
 
-import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
 import io.github.gaonbarrier.easykiosk.tablet.R;
-import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
-
-import java.util.Base64;
+import io.github.gaonbarrier.easykiosk.tablet.NormalActivity;
 
 public class BUTTONS extends LinearLayout {
     Activity mNormalAct;

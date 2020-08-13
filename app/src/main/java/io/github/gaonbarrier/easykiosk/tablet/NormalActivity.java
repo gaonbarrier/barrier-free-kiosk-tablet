@@ -1,27 +1,23 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
-import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
-import io.github.gaonbarrier.easykiosk.tablet.R;
-import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
 import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.Sender;
+import io.github.gaonbarrier.easykiosk.tablet.normal.ContentsPagerAdapter;
+import io.github.gaonbarrier.easykiosk.tablet.normal.FragTest;
 
 import java.util.ArrayList;
 
@@ -29,11 +25,11 @@ public class NormalActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
-    private FragTest bestFrag;
+   /* private FragTest bestFrag;
     private FragTest coffeeFrag;
     private FragTest smoothieFrag;
     private FragTest adeFrag;
-    private FragTest teaFrag; // 이상 Back
+    private FragTest teaFrag; */// 이상 Back
     //뭐하는 아재들인지 잘은 모르겠음. Fragment를 Extend한걸로 봐서 흠.....글쎄다
 
     private ArrayList<FragTest> Frags;
@@ -50,10 +46,12 @@ public class NormalActivity extends AppCompatActivity {
     //이 아재도 잘은 모르겠음.
 
     private Sender sender;
+    //Garbage collection이 알아서 처리해줄 것인가? -> 차라리 Main에서 항상 상시 대기치게 만들어야 할까?
 
-    public static MenuLayout menuLayout;
-    public static CartLayout cartLayout;
     //솔직히 맘같에선 밑에 처리들을 전부 menuLayout 아재가 다 처리햇으면 좋겠음. 언제든 바꿀 수 있게 위 아재들을 field에 좀 짱박아둘 생각.
+
+    private MenuLayout menuLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +68,8 @@ public class NormalActivity extends AppCompatActivity {
         mTabLayout = findViewById(R.id.main_tab);
         mViewPager = findViewById(R.id.main_viewpager);
 
-        menuLayout = new MenuLayout();
-        cartLayout = new CartLayout();
         sender = new Sender();
+        menuLayout = new MenuLayout();
 
         for(Category category : menuLayout.getCategory()){
             mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));
@@ -86,7 +83,7 @@ public class NormalActivity extends AppCompatActivity {
         //1. 처음에 들어온 순서를 기억하게 한다.
         //2. 카테고리를 먼저 만들고 짱박아두게 만드는 방법. -> 메커니즘을 살짝 고쳐야 할지도 모르지만 불가능한건 아니다.
 
-        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), menuLayout.getCategory());
+        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), MainActivity.MenuLayout.getCategory());
         mViewPager.setAdapter(mContentPagerAdapter);
         //뭔 아재들인진 모르겠지만 어댑터 아재를 이걸로 쓰는걸로 보아...뭔 소린지 모르겠음 ㅋㅋㅋㅋ
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
@@ -114,58 +111,11 @@ public class NormalActivity extends AppCompatActivity {
         resultBotton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String json = sender.orderToJSON(NormalActivity.cartLayout.getCartList());
+                String json = sender.orderToJSON(MainActivity.CartLayout.getCartList());
                 System.out.println(json);
                 sender.sendData(json);
-                NormalActivity.cartLayout.getCartList().clear();
+                MainActivity.CartLayout.getCartList().clear();
             }
         });
-
-        //ListView listView = (ListView)findViewById(R.id.listView);
-        //front
-
-        /*// 플래그먼트 매니저 선언
-        fragmentManager = getSupportFragmentManager();
-
-        // 각각의 버튼에 맞는 Frag들 선언
-        bestFrag = new FragTest("하나");
-        coffeeFrag = new FragTest("둘");
-        smoothieFrag = new FragTest("셋");
-        adeFrag = new FragTest("넷");
-        teaFrag = new FragTest("다섯");*/
-
-
-        /*
-
-        // 대충 이렇게 트랜잭션 생성하고 바꿔주는듯 (기본인 bestFrag 지정)
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragTest, bestFrag).commitAllowingStateLoss();*/
     }
-
-    // 버튼 누르면 생기는 이벤트들
-    // 버튼 확인하고 각각에 맞는 Frag들 지정
-    /*public void clickHandler(View view)
-    {
-        transaction = fragmentManager.beginTransaction();
-
-        switch(view.getId())
-        {
-            case R.id.btn_fragment1:
-                transaction.replace(R.id.fragTest, bestFrag).commitAllowingStateLoss();
-                break;
-            case R.id.btn_fragment2:
-                transaction.replace(R.id.fragTest, coffeeFrag).commitAllowingStateLoss();
-                break;
-            case R.id.btn_fragment3:
-                transaction.replace(R.id.fragTest, smoothieFrag).commitAllowingStateLoss();
-                break;
-            case R.id.btn_fragment4:
-                transaction.replace(R.id.fragTest, adeFrag).commitAllowingStateLoss();
-                break;
-            case R.id.btn_fragment5:
-                transaction.replace(R.id.fragTest, teaFrag).commitAllowingStateLoss();
-                break;
-        }
-    }*/ //어차피 fragment 설정들은 모두 ContentPagerAdapter에서 해결해놨기 때문에 여기에 있는 것들은 그냥 다 지워버리겠음.
-    //잘은 모르겠지만 아재들 이해 잘 안됨 ㅇㅇ 설명부탁.
 }

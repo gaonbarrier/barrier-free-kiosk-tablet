@@ -7,13 +7,11 @@ import com.google.gson.*;
 import io.github.gaonbarrier.easykiosk.tablet.db.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Receiver {
     private ServerSocket serverSocket;
