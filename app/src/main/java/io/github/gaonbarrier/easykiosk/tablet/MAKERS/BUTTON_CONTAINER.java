@@ -2,7 +2,10 @@ package io.github.gaonbarrier.easykiosk.tablet.MAKERS;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 
+import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
@@ -38,9 +42,12 @@ public class BUTTON_CONTAINER extends LinearLayout {
     }
 
     private void init(Context context, item item) {
-
-        BUTTONS buttons = new BUTTONS(context, item.getName(), item.getElements().get(0).getImage(),0.15); //create Buttons for Product
-        buttons.setOnClickListener(new OnClickListener() {
+        Resources res = getResources();
+        Drawable Coffee = ResourcesCompat.getDrawable(res, R.drawable.americano, null);
+        Drawable loading = ResourcesCompat.getDrawable(res, R.drawable.loading, null);
+        //BUTTONS buttons = new BUTTONS(context, item.getName(), item.getElements().get(0).getImage(),0.15); //create Buttons for Product
+        BUTTONS productButtons = new BUTTONS(context, item.getName(), Coffee,0.15);
+        productButtons.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                /*if(item.getColdPrice() != 0 && item.getHotPrice() != 0){
@@ -68,13 +75,13 @@ public class BUTTON_CONTAINER extends LinearLayout {
         PriceStyle(item.getHotPrice(),item.getColdPrice());                                                   //가격 불러오는 겁니다.
         GettingIcon();                                                  //icon 불러오는 겁니다.
 
-        container_product.addView(buttons);                             //좌측 버튼들 끗!
+        container_product.addView(productButtons);                             //좌측 버튼들 끗!
 
         LinearLayout container_element = (LinearLayout) findViewById(R.id.container_element);
 
-        BUTTONS elementButton;
+        BUTTONS elementButton; //재료버튼
         for(int i = 1; i < item.getElements().size(); i++){
-            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), item.getElements().get(i).getImage(),0.125);
+            elementButton = new BUTTONS(context, item.getElements().get(i).getName(), loading,0.125);
             elementButton.setPadding(15, 15, 15, 15);
             container_element.addView(elementButton);
         }

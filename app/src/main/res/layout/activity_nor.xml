@@ -5,7 +5,7 @@
               android:id="@+id/container"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white"
+              android:background="#F7F3E8"
               android:orientation="vertical"
               tools:context=".MainActivity">
 
@@ -16,7 +16,10 @@
             android:layout_height="wrap_content"
             app:tabGravity="center"
             app:tabMode="scrollable"
-            app:tabTextColor="#000000"
+            app:tabTextColor="#808080"
+            app:tabSelectedTextColor="#723838"
+            app:tabIndicatorColor="#723838"
+            app:tabTextAppearance="@style/tab_text"
     />
 
 
@@ -30,10 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <Button
+                android:padding="2dp"
+                android:background="@drawable/result_outline"
+                android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/main_resultButton"/>
-
     </LinearLayout>
 
 

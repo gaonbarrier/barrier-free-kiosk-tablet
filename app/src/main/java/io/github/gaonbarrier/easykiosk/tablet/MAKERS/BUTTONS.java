@@ -2,7 +2,9 @@ package io.github.gaonbarrier.easykiosk.tablet.MAKERS;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.*;
 
 import androidx.annotation.Nullable;
 
+import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
@@ -22,17 +25,18 @@ import java.util.Base64;
 public class BUTTONS extends LinearLayout {
     Activity mNormalAct;
 
-    public BUTTONS(Context context, String Name, String image, double rate) {
+    public BUTTONS(Context context, String Name, Drawable image, double rate) {
         super(context);
         init(context, Name, image, rate);
     }
 
-    public BUTTONS(Context context, @Nullable AttributeSet attrs, String Name, String image, double rate) {
+    public BUTTONS(Context context, @Nullable AttributeSet attrs, String Name, Drawable image, double rate) {
         super(context, attrs);
         init(context, Name, image, rate);
     }
 
-    private void init(Context context, String Name, String image, double rate) {
+    private void init(Context context, String Name, Drawable image, double rate) {
+
         mNormalAct = NormalActivity._NormalActivity;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.button, this, true);
@@ -40,7 +44,7 @@ public class BUTTONS extends LinearLayout {
 
 
         ImageView button_pic = (ImageView)findViewById(R.id.button_pic);
-        Glide.with(this).load(R.drawable.auto).into(button_pic);//들어갈 이미지의 파일명을 적어야함.
+        Glide.with(this).load(image).into(button_pic);//들어갈 이미지의 파일명을 적어야함.
         //파일로 저장할것인가
         //실시간으로 만들어낼것인가
         /*

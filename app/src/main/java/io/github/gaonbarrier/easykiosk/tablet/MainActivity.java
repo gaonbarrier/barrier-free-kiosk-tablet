@@ -1,7 +1,12 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
+import android.graphics.Point;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
+import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
+import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
 import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
 import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
 import io.github.gaonbarrier.easykiosk.tablet.network.*;
@@ -15,11 +20,8 @@ import android.view.View;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.util.Enumeration;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +77,24 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////
         CartLayout = new CartLayout();
         MenuLayout = new MenuLayout();
+
+        int[] buttonIDs = new int[3];
+        Button[] buttons = new Button[3];
+        String[] buttonNames = {"주문", "음성", "연습"};
+        Point DisplaySize = FullSize.FullSize(this);
+        ImageView[] images = new ImageView[3];
+        int[] imageIDs = new int[3];
+
+        for(int i =0; i<3; i++){
+            buttonIDs[i] = getResources().getIdentifier("main_button"+i,"id", "io.github.gaonbarrier.easykiosk.tablet");
+            imageIDs[i] = getResources().getIdentifier("main_image"+i, "id", "io.github.gaonbarrier.easykiosk.tablet");
+            buttons[i] = findViewById(buttonIDs[i]);
+            images[i] = findViewById(imageIDs[i]);
+            buttons[i].setText(buttonNames[i]);
+            ImageSize.ImageSize(images[i], DisplaySize.x, 0.17, 0.33);
+        }
+
+
     }
 
     public String wifiIpAddress(){
