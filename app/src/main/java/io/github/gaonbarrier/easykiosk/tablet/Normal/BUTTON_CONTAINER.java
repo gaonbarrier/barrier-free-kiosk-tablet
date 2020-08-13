@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet.Normal;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,8 +21,8 @@ import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
 import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
 import io.github.gaonbarrier.easykiosk.tablet.NormalActivity;
 import io.github.gaonbarrier.easykiosk.tablet.R;
-import io.github.gaonbarrier.easykiosk.tablet.cart.Select;
-import io.github.gaonbarrier.easykiosk.tablet.menu.item;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Select;
+import io.github.gaonbarrier.easykiosk.tablet.Data.item;
 
 
 public class BUTTON_CONTAINER extends LinearLayout {
@@ -58,8 +58,8 @@ public class BUTTON_CONTAINER extends LinearLayout {
                    //선택하게함.
                }*/
                 Select select = new Select(item.getName(), item.getHotPrice(), true, 1);
-                MainActivity.CartLayout.getCartList().add(select);
-                for(Select temp : MainActivity.CartLayout.getCartList()){
+                MainActivity.Cart.getCartList().add(select);
+                for(Select temp : MainActivity.Cart.getCartList()){
                     System.out.println(temp.getName() + " , " + temp.getPrice() + " , " + temp.getAmount());
                 }
             }

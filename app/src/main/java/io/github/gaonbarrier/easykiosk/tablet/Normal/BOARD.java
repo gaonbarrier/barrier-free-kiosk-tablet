@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet.Normal;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import io.github.gaonbarrier.easykiosk.tablet.NormalActivity;
 import io.github.gaonbarrier.easykiosk.tablet.R;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
+import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
 
 
 public class BOARD extends Fragment {

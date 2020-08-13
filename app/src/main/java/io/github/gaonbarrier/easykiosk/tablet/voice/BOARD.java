@@ -9,10 +9,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import io.github.gaonbarrier.easykiosk.tablet.NormalActivity;
 import io.github.gaonbarrier.easykiosk.tablet.R;
 import io.github.gaonbarrier.easykiosk.tablet.VoiceActivity;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
+import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
 
 
 public class BOARD extends Fragment {

@@ -1,10 +1,10 @@
-package io.github.gaonbarrier.easykiosk.tablet.network;
+package io.github.gaonbarrier.easykiosk.tablet.Network;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import com.google.gson.*;
-import io.github.gaonbarrier.easykiosk.tablet.db.*;
+import io.github.gaonbarrier.easykiosk.tablet.DB.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 

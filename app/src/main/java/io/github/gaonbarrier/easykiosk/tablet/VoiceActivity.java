@@ -11,11 +11,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
-import io.github.gaonbarrier.easykiosk.tablet.cart.Select;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
-import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
-import io.github.gaonbarrier.easykiosk.tablet.menu.item;
-import io.github.gaonbarrier.easykiosk.tablet.network.Sender;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Select;
+import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
+import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
+import io.github.gaonbarrier.easykiosk.tablet.Data.item;
+import io.github.gaonbarrier.easykiosk.tablet.Network.Sender;
 import io.github.gaonbarrier.easykiosk.tablet.voice.*;
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class VoiceActivity extends AppCompatActivity {
 
     private Sender sender;
 
-    private MenuLayout menuLayout;
+    private DataStructure dataStructure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,17 @@ public class VoiceActivity extends AppCompatActivity {
         mTabLayout = findViewById(R.id.voice_tab);
         mViewPager = findViewById(R.id.voice_viewpager);
 
-        menuLayout = new MenuLayout();
+        dataStructure = new DataStructure();
 
         sender = new Sender();
-        for(Category category : menuLayout.getCategory()){
+        for(Category category : dataStructure.getCategory()){
            mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));
             System.out.println(category.getCategoryName());
             for(item item : category.getItems()){
                 System.out.println(item.getName());
             }
         }
-        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), menuLayout.getCategory());
+        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), dataStructure.getCategory());
         mViewPager.setAdapter(mContentPagerAdapter);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
@@ -91,7 +91,7 @@ public class VoiceActivity extends AppCompatActivity {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(Select temp : MainActivity.CartLayout.getCartList()){
+                for(Select temp : MainActivity.Cart.getCartList()){
                     System.out.println(temp.getName() + " , " + temp.getPrice() + " , " + temp.getAmount());
                 }
             }
@@ -100,10 +100,10 @@ public class VoiceActivity extends AppCompatActivity {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String json = sender.orderToJSON(MainActivity.CartLayout.getCartList());
+                String json = sender.orderToJSON(MainActivity.Cart.getCartList());
                 System.out.println(json);
                 sender.sendData(json);
-                MainActivity.CartLayout.getCartList().clear();
+                MainActivity.Cart.getCartList().clear();
             }
         });
 
@@ -111,7 +111,7 @@ public class VoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("주문취소됬음 아재");
-                MainActivity.CartLayout.getCartList().clear();
+                MainActivity.Cart.getCartList().clear();
             }
         });
 

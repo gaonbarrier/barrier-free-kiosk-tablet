@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.cart;
+package io.github.gaonbarrier.easykiosk.tablet.Cart;
 
 public class Select{
     private String Name;

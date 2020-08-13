@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.network;
+package io.github.gaonbarrier.easykiosk.tablet.Network;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.gaonbarrier.easykiosk.tablet.cart.*;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.*;
 
 public class Sender {
     public String orderToJSON(ArrayList<Select> cartList){

@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.image;
+package io.github.gaonbarrier.easykiosk.tablet.Image;
 
 import android.util.Base64;
 

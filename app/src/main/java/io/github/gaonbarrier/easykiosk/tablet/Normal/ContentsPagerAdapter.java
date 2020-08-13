@@ -1,10 +1,10 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet.Normal;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import io.github.gaonbarrier.easykiosk.tablet.menu.Category;
+import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

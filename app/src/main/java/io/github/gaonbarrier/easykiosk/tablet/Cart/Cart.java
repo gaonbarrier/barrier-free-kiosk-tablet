@@ -1,12 +1,12 @@
-package io.github.gaonbarrier.easykiosk.tablet.cart;
+package io.github.gaonbarrier.easykiosk.tablet.Cart;
 
 import java.util.ArrayList;
 
-public class CartLayout {
+public class Cart {
     private ArrayList<Select> cartList;
     private int Amount;
 
-    public CartLayout(){
+    public Cart(){
         cartList = new ArrayList<Select>();
     }
 

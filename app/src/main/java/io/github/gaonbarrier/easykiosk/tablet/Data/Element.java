@@ -1,5 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.menu;
-import android.widget.ImageView;
+package io.github.gaonbarrier.easykiosk.tablet.Data;
 
 public class Element {
     private String Name;

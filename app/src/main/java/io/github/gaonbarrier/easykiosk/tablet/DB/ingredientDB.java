@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.db;
+package io.github.gaonbarrier.easykiosk.tablet.DB;
 
 import android.provider.BaseColumns;
 

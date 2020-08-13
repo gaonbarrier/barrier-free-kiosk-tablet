@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.normal;
+package io.github.gaonbarrier.easykiosk.tablet.Normal;
 
 import android.app.Activity;
 import android.content.Context;

@@ -8,10 +8,10 @@ import android.widget.ImageView;
 
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
-import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
-import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
-import io.github.gaonbarrier.easykiosk.tablet.db.*;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Cart;
+import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
+import io.github.gaonbarrier.easykiosk.tablet.Network.*;
+import io.github.gaonbarrier.easykiosk.tablet.DB.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,9 +27,9 @@ import java.nio.ByteOrder;
 
 public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
-    //public static Sender Sender;
-    public static CartLayout CartLayout;
-    public static MenuLayout MenuLayout;
+    public static Sender Sender;
+    public static Cart Cart;
+    public static DataStructure DataStructure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //DB & Server Section
         /////////////////////////////////////////
         Receiver = new Receiver();
-        //Sender = new Sender();
+        Sender = new Sender();
         //Receiver와 Sender 선언
         //Static 아재들이기 때문에 우선순위 높게 설정
         //System.out.println(wifiIpAddress());
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////
         //Cart나 item 객체 Section
         ////////////////////////////////////////
-        CartLayout = new CartLayout();
-        MenuLayout = new MenuLayout();
+        Cart = new Cart();
+        DataStructure = new DataStructure();
 
         int[] buttonIDs = new int[3];
         Button[] buttons = new Button[3];
@@ -107,20 +107,20 @@ public class MainActivity extends AppCompatActivity {
         Receiver = receiver;
     }
 
-    public CartLayout getCartLayout() {
-        return CartLayout;
+    public Cart getCartLayout() {
+        return Cart;
     }
 
-    public void setCartLayout(CartLayout cartLayout) {
-        CartLayout = cartLayout;
+    public void setCartLayout(Cart cart) {
+        Cart = cart;
     }
 
-    public io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout getMenuLayout() {
-        return MenuLayout;
+    public DataStructure getMenuLayout() {
+        return DataStructure;
     }
 
-    public void setMenuLayout(io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout menuLayout) {
-        MenuLayout = menuLayout;
+    public void setMenuLayout(DataStructure dataStructure) {
+        DataStructure = dataStructure;
     }
 
     public String wifiIpAddress(){

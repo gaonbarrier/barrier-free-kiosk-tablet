@@ -1,4 +1,4 @@
-package io.github.gaonbarrier.easykiosk.tablet.menu;
+package io.github.gaonbarrier.easykiosk.tablet.Data;
 
 import java.util.ArrayList;
 
