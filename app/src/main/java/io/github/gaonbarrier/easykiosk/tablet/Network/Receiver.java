@@ -58,18 +58,21 @@ public class Receiver {
                         }
                         Log.v("", socket.getInetAddress() + "에서 메시지를 보냈습니다.");
                         try {
-                            bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()), 10200 * 2014);
                             String message = bufReader.readLine();
 
                             Log.v("", message);
 
-                            JsonParser parser = new JsonParser();
+                            //JsonParser parser = new JsonParser();
+                            //JsonP
                             Gson gson = new Gson();
                             JsonElement element;
                             String command;
+
                             // input된 코드가 json이 아닐 경우 예외 처리
                             try {
-                                element = parser.parse(message);
+                                System.out.println(bufReader.readLine());
+                                element = JsonParser.parseString(bufReader.readLine());
                                 command = element.getAsJsonObject().get("Action").getAsString();
                             } catch (IllegalStateException e) {
                                 e.printStackTrace();
