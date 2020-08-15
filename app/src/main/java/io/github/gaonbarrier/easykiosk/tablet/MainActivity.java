@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        Point DisplaySize = getScreenfullSize.getScreenfullSize(this);
+        Point DisplaySize = getScreenfullSize.getScreenfullSize(this); //테블릿 사이즈 불러오기 공식
 
-        //System.out.println("Dis sizeX:"+DisplaySize.x);
+        Log.d("Display Size 출력", "size"+DisplaySize);
 
-        Point size = ImageSize.init(DisplaySize.x, 0.3, 0.6 );
+        Point size = ImageSize.init(DisplaySize.x, 0.3, 0.6 ); //비율을 통해 구한 사이즈를 저장
         Button btn1 = (Button)findViewById(R.id.btn1);
         Button btn2 = (Button)findViewById(R.id.btn2);
         Button btn3 = (Button)findViewById(R.id.btn3);
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btn3.setWidth(size.x);
         btn3.setHeight(size.y);
         Log.d("size", "size"+size);
+
 
         /*
         * 그래서 일단 어떻게 할 생각이냐?
