@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Cart;
+import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
 import io.github.gaonbarrier.easykiosk.tablet.Normal.ContentsPagerAdapter;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class NormalActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private DataStructure DataStructure;
 
    /* private FragTest bestFrag;
     private FragTest coffeeFrag;
@@ -60,7 +63,9 @@ public class NormalActivity extends AppCompatActivity {
         mTabLayout = findViewById(R.id.main_tab);
         mViewPager = findViewById(R.id.main_viewpager);
 
-        for(Category category : MainActivity.DataStructure.getCategory()){
+        DataStructure = new DataStructure();
+
+        for(Category category : DataStructure.getCategory()){
             mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));
             //Frags.add(new FragTest(category.getCategoryName()));
             //밑에 Frag아재들 Static 으로 저지랄하는거 Dynamic으로 바꾼거
@@ -72,7 +77,7 @@ public class NormalActivity extends AppCompatActivity {
         //1. 처음에 들어온 순서를 기억하게 한다.
         //2. 카테고리를 먼저 만들고 짱박아두게 만드는 방법. -> 메커니즘을 살짝 고쳐야 할지도 모르지만 불가능한건 아니다.
 
-        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), MainActivity.DataStructure.getCategory());
+        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), DataStructure.getCategory());
         mViewPager.setAdapter(mContentPagerAdapter);
         //뭔 아재들인진 모르겠지만 어댑터 아재를 이걸로 쓰는걸로 보아...뭔 소린지 모르겠음 ㅋㅋㅋㅋ
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));

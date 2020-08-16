@@ -13,7 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedHashMap;
 
-public class Receiver {
+public class ReceiverDummy {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufReader;
@@ -61,12 +61,17 @@ public class Receiver {
                         }
                         Log.v("", socket.getInetAddress() + "에서 메시지를 보냈습니다.");
                         try {
-                            /*dataInputStream = new DataInputStream(socket.getInputStream());
+                            dataInputStream = new DataInputStream(socket.getInputStream());
                             String data = dataInputStream.readUTF();
 
                             if(data.equals("JSON")){
-                                //String JSON =
-                            }*/
+                                String JSON = getMsg(dataInputStream);
+                                Log.v("", JSON);
+                            }
+                            else if(data.equals("Image")){
+                               // String fileName
+                            }
+
                             bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()), 10200 * 2014);
                             String message = bufReader.readLine();
 
