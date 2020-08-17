@@ -18,12 +18,9 @@ public class Receiver {
     private Socket socket;
     private BufferedReader bufReader;
     private BufferedWriter bufWriter;
-    private DataInputStream dataInputStream;
     private itemDBOpenHelper itemDBOpenHelper;
     private optionDBOpenHelper optionDBOpenHelper;
     private ingredientDBOpenHelper ingredientDBOpenHelper;
-    private FileOutputStream fileOutputStream;
-    private BufferedOutputStream bufferedOutputStream;
 
 
     public itemDBOpenHelper getItemDBOpenHelper() {
@@ -61,27 +58,18 @@ public class Receiver {
                         }
                         Log.v("", socket.getInetAddress() + "에서 메시지를 보냈습니다.");
                         try {
-                            /*dataInputStream = new DataInputStream(socket.getInputStream());
-                            String data = dataInputStream.readUTF();
-
-                            if(data.equals("JSON")){
-                                //String JSON =
-                            }*/
-                            bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()), 10200 * 2014);
+                            bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             String message = bufReader.readLine();
 
                             Log.v("", message);
 
-                            //JsonParser parser = new JsonParser();
-                            //JsonP
+                            JsonParser parser = new JsonParser();
                             Gson gson = new Gson();
                             JsonElement element;
                             String command;
-
                             // input된 코드가 json이 아닐 경우 예외 처리
                             try {
-                                System.out.println(bufReader.readLine());
-                                element = JsonParser.parseString(bufReader.readLine());
+                                element = parser.parse(message);
                                 command = element.getAsJsonObject().get("Action").getAsString();
                             } catch (IllegalStateException e) {
                                 e.printStackTrace();
@@ -164,58 +152,78 @@ public class Receiver {
             e.printStackTrace();
         }
     }
-    private String fileWrite(DataInputStream dis){
-        String result;
-        String filePath = "C:/develop/testdata/receiver";
+    //밑에 친구는 내가 초창기에 짰던 쓰래기 코드
+   /*@Override
+    public void run() {
 
-        try{
-            System.out.println("파일 수신 작업을 시작합니다.");
-            String fileNm = dis.readUTF();
-            System.out.println("파일명" + fileNm + "을 전송받았습니다.");
-
-            File file = new File(filePath + "/" + fileNm);
-            fileOutputStream = new FileOutputStream(file);
-            bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-
-            int len;
-            int size = 4096;
-            byte[] data = new byte[size];
-            while((len = dis.read(data)) != -1){
-                bufferedOutputStream.write(data, 0, len);
-            }
-
-            result = "SUCCESS";
-
-            System.out.println("파일 수신 작업을 완료하였습니다.");
-            System.out.println("받은 파일의 사이즈 : " + file.length());
-        }catch(IOException e){
+        int port = 2002;
+        try {
+            // 서버 생성
+            serverSocket = new ServerSocket(port);
+            Log.d("ServerThread", "Activated Server");
+        } catch (IOException e) {
             e.printStackTrace();
-            result = "ERROR";
-        }finally{
-            try{bufferedOutputStream.close();}catch(IOException e){e.printStackTrace();}
-            try{fileOutputStream.close();}catch(IOException e){e.printStackTrace();}
-            try{dis.close();}catch(IOException e){e.printStackTrace();}
         }
 
-        return result;
-    }
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
 
-    private String getMsg(DataInputStream dis){
-        String result;
+                socket = serverSocket.accept();
+                bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        try{
-            System.out.println("파일 수신 작업을 시작합니다.");
-            String msg = dis.readUTF();
-            System.out.println("msg : " + msg);
+                String message = bufReader.readLine();
+                System.out.println("Client sent:" + message);
 
-            result = "SUCCESS";
-            System.out.println("메세지 수신 작업을 완료했습니다.");
-        }catch(IOException e){
-            e.printStackTrace();
-            result = "ERROR";
-        }finally{
-            try{dis.close();}catch(IOException e){e.printStackTrace();}
-        }
-        return result;
-    }
+                bufWriter =
+                        new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                bufWriter.write(message);
+                bufWriter.newLine();
+                bufWriter.flush();
+                //테스트코드
+
+                //client 접속 accept
+                /*socket = serverSocket.accept();
+                //client가 보낸 데이터 출력
+                bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String message = bufReader.readLine();
+                //무언가를 받아왔습니다 아저씨덜
+                JsonParser parser = new JsonParser();
+                JsonElement element = parser.parse(message);
+                String command = element.getAsJsonObject().get("Action").getAsString();
+                System.out.println("Command : "+ command);
+                System.out.println("Client sent:" + message);
+                //파셔로 그거 분석하고 테스트삼아 출력
+                switch(command){
+                    //command에 따라서 (Action 에 입력된 값에 따라서)
+                    case "NewMenu":{
+                        String Name = element.getAsJsonObject().get("Name").getAsString();
+                        String Category = element.getAsJsonObject().get("Category").getAsString();
+                        int PriceHot = Integer.parseInt(element.getAsJsonObject().get("PriceHot").getAsString());
+                        int PriceCold = Integer.parseInt(element.getAsJsonObject().get("PriceCold").getAsString());
+                        String Image = element.getAsJsonObject().get("Image").getAsString();
+
+                        itemDBOpenHelper.insertColumn(Name,Category,PriceHot,PriceCold,Image);
+                        //새로운 메뉴 INSERT 명령 -> items Table에
+                    }
+                        break;
+                    case "DeleteMenu":{
+                        String name = element.getAsJsonObject().get("Name").getAsString();
+                        long id = itemDBOpenHelper.findID(name);
+                        itemDBOpenHelper.deleteColumn(id);
+                        //이름만 따와서 ID를 찾고 그 ID 찾아서 지움
+                    }
+                        break;
+                    default : System.out.println("Error");
+                    //Action 값이 이상한거면 error -> 그냥 메시지 출력만 하고 ㅃㅃ2
+                        break;
+                }
+                bufWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                bufWriter.write(message);
+                bufWriter.newLine();
+                bufWriter.flush();
+                //ㅅㅂ*/
+    //} catch (Exception e) {
+    //    e.printStackTrace();
+    //}
 }

@@ -36,11 +36,12 @@
         <Button
                 android:padding="2dp"
                 android:layout_weight="5"
-                android:background="@drawable/result_outline"
+
                 android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/voice_cartButton"/>
+        <!-- android:background="@drawable/result_outline" -->
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,20 +49,19 @@
             <Button
                     android:padding="2dp"
                     android:layout_weight="5"
-                    android:background="@drawable/result_outline"
                     android:textColor="@color/colorWhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/voice_resultButton"/>
+            <!-- android:background="@drawable/result_outline" -->
             <Button
                     android:padding="2dp"
                     android:layout_weight="5"
-                    android:background="@drawable/result_outline"
                     android:textColor="@color/colorWhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/voice_cancelButton"/>
-
+            <!-- android:background="@drawable/result_outline" -->
         </LinearLayout>
 
     </LinearLayout>
