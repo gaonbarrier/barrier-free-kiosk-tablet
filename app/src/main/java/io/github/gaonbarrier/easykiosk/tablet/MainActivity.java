@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
     public static Sender Sender;
     public static Cart Cart;
-    public static DataStructure DataStructure;
+    //public static DataStructure DataStructure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         //Cart나 item 객체 Section
         ////////////////////////////////////////
         Cart = new Cart();
-        DataStructure = new DataStructure();
+        //DataStructure = new DataStructure();
 
         int[] buttonIDs = new int[3];
         Button[] buttons = new Button[3];
@@ -115,13 +115,13 @@ public class MainActivity extends AppCompatActivity {
         Cart = cart;
     }
 
-    public DataStructure getMenuLayout() {
+    /*public DataStructure getMenuLayout() {
         return DataStructure;
-    }
+    }*/
 
-    public void setMenuLayout(DataStructure dataStructure) {
+   /* public void setMenuLayout(DataStructure dataStructure) {
         DataStructure = dataStructure;
-    }
+    }*/
 
     public String wifiIpAddress(){
         WifiManager wifiManagerf = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
