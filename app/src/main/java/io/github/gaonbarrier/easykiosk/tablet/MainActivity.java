@@ -1,32 +1,35 @@
 package io.github.gaonbarrier.easykiosk.tablet;
 
+import android.graphics.Point;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import io.github.gaonbarrier.easykiosk.tablet.cart.CartLayout;
-import io.github.gaonbarrier.easykiosk.tablet.menu.MenuLayout;
-import io.github.gaonbarrier.easykiosk.tablet.network.*;
-import io.github.gaonbarrier.easykiosk.tablet.db.*;
-import io.github.gaonbarrier.easykiosk.tablet.normal.NormalActivity;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
+import io.github.gaonbarrier.easykiosk.tablet.HELPER.ImageSize;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Cart;
+import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
+import io.github.gaonbarrier.easykiosk.tablet.Network.*;
+import io.github.gaonbarrier.easykiosk.tablet.DB.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 
+
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.util.Enumeration;
 
 
 public class MainActivity extends AppCompatActivity {
     public static Receiver Receiver;
     public static Sender Sender;
-    private CartLayout CartLayout;
-    private MenuLayout MenuLayout;
+    public static Cart Cart;
+    public static DataStructure DataStructure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         * 그래서 일단 어떻게 할 생각이냐?
         * 메뉴 레이아웃, 카트 레이아웃, 결제 레이아웃이 모이는거지
+        * -> 매우 자바같은 발상! 지금은 앱을 만드는중이다 이 아저씨야!
         * 세 가지의 레이아웃, 그리고 서버와 데이터베이스 파트가 상호작용 하는 것.
         * 서버랑 데이터베이스 파트는 눈에 안보임 ㅇㅇ
         *
@@ -68,13 +72,55 @@ public class MainActivity extends AppCompatActivity {
         Receiver.getIngredientDBOpenHelper().SelectAll();
         //테스트 아재
 
-        Receiver.serverCreate();
+       Receiver.serverCreate();
         //서버를 열어준다.
         ////////////////////////////////////////
         //Cart나 item 객체 Section
         ////////////////////////////////////////
-        CartLayout = new CartLayout();
-        MenuLayout = new MenuLayout();
+        Cart = new Cart();
+        DataStructure = new DataStructure();
+
+        int[] buttonIDs = new int[3];
+        Button[] buttons = new Button[3];
+        String[] buttonNames = {"주문", "음성", "연습"};
+        Point DisplaySize = FullSize.FullSize(this);
+        ImageView[] images = new ImageView[3];
+        int[] imageIDs = new int[3];
+
+        for(int i =0; i<3; i++){
+            buttonIDs[i] = getResources().getIdentifier("main_button"+i,"id", "io.github.gaonbarrier.easykiosk.tablet");
+            imageIDs[i] = getResources().getIdentifier("main_image"+i, "id", "io.github.gaonbarrier.easykiosk.tablet");
+            buttons[i] = findViewById(buttonIDs[i]);
+            images[i] = findViewById(imageIDs[i]);
+            buttons[i].setText(buttonNames[i]);
+            ImageSize.ImageSize(images[i], DisplaySize.x, 0.17, 0.33);
+        }
+
+
+    }
+
+    public static Receiver getReceiver() {
+        return Receiver;
+    }
+
+    public static void setReceiver(Receiver receiver) {
+        Receiver = receiver;
+    }
+
+    public Cart getCartLayout() {
+        return Cart;
+    }
+
+    public void setCartLayout(Cart cart) {
+        Cart = cart;
+    }
+
+    public DataStructure getMenuLayout() {
+        return DataStructure;
+    }
+
+    public void setMenuLayout(DataStructure dataStructure) {
+        DataStructure = dataStructure;
     }
 
     public String wifiIpAddress(){
@@ -102,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onClick1(View view)
     {
-        Intent intent = new Intent(this, SoundActivity.class);
+        Intent intent = new Intent(this, VoiceActivity.class);
         startActivity(intent);
     }
     public void onClick2(View view)

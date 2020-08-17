@@ -1,73 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorBackground">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/container"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#F7F3E8"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
+
+    <com.google.android.material.tabs.TabLayout
+            android:layout_weight="1"
+            android:id="@+id/main_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="center"
+            app:tabMode="scrollable"
+            app:tabTextColor="#808080"
+            app:tabSelectedTextColor="#723838"
+            app:tabIndicatorColor="#723838"
+            app:tabTextAppearance="@style/tab_text"
+    />
+
+
+    <androidx.viewpager.widget.ViewPager
+            android:layout_weight="8"
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp">
-
-        <LinearLayout
+            android:layout_height="wrap_content">
+        <Button
+                android:padding="2dp"
+                android:background="@drawable/result_outline"
+                android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    android:id="@+id/btn_fragment1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickHandler"
-                    android:text="베스트"
-                    android:background="@drawable/button_selector"/>
-
-            <Button
-                    android:id="@+id/btn_fragment2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickHandler"
-                    android:text="커피"
-                    android:background="@drawable/button_selector"/>
-
-            <Button
-                    android:id="@+id/btn_fragment3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickHandler"
-                    android:text="스무디"
-                    android:background="@drawable/button_selector"/>
-
-            <Button
-                    android:id="@+id/btn_fragment4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickHandler"
-                    android:text="에이드"
-                    android:background="@drawable/button_selector"/>
-            />
-
-            <Button
-                    android:id="@+id/btn_fragment5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickHandler"
-                    android:text="티"
-                    android:background="@drawable/button_selector"/>
-            />
-        </LinearLayout>
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/fragTest" />
+                android:layout_height="wrap_content"
+                android:id="@+id/main_resultButton"/>
     </LinearLayout>
-</RelativeLayout>
+    <!--android:background="@drawable/result_outline" -->
+
+
+</LinearLayout>

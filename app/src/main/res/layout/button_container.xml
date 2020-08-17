@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/container_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/container_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#F7F3E8"
+        android:paddingStart="10sp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/container_hot_icon"
+                style="@style/container_price" />
+
+            <TextView
+                android:id="@+id/container_priceHot"
+                style="@style/container_price"
+                android:layout_toEndOf="@id/container_hot_icon"
+                android:padding="20sp" />
+        </RelativeLayout>
+
+        <TableRow>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/container_cold_icon"
+                    style="@style/container_price" />
+
+                <TextView
+                    android:id="@+id/container_priceCold"
+                    style="@style/container_price"
+                    android:layout_toEndOf="@id/container_cold_icon"
+                    android:padding="20sp" />
+            </RelativeLayout>
+        </TableRow>
+
+    </TableLayout>
+
+
+    <HorizontalScrollView
+        android:id="@+id/container_element_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/container_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</LinearLayout>

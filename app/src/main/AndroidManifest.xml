@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="io.github.gaonbarrier.easykiosk.tablet">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
@@ -13,29 +13,26 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
+        <activity android:name=".VoiceActivity">
+        </activity>
         <!-- 스플래시 액티비티 -->
         <activity
                 android:name=".SplashActivity"
                 android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity">
         </activity>
-
-        <activity android:name=".normal.NormalActivity">
+        <activity android:name=".NormalActivity">
         </activity>
-
         <activity android:name=".SoundActivity">
         </activity>
-
         <activity android:name=".PracticeActivity">
         </activity>
-
     </application>
 
 </manifest>
