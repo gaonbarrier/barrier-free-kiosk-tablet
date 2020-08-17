@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
 import io.github.gaonbarrier.easykiosk.tablet.Normal.ContentsPagerAdapter;
@@ -42,6 +43,7 @@ public class NormalActivity extends AppCompatActivity {
     //뷰페이저? 이 아재의 목적은 아직 잘 모르겠음.
     private ContentsPagerAdapter mContentPagerAdapter;
     //이 아재도 잘은 모르겠음.
+    private DataStructure DataStructure;
 
     //솔직히 맘같에선 밑에 처리들을 전부 menuLayout 아재가 다 처리햇으면 좋겠음. 언제든 바꿀 수 있게 위 아재들을 field에 좀 짱박아둘 생각.
 
@@ -59,8 +61,9 @@ public class NormalActivity extends AppCompatActivity {
 
         mTabLayout = findViewById(R.id.main_tab);
         mViewPager = findViewById(R.id.main_viewpager);
+        DataStructure = new DataStructure();
 
-        for(Category category : MainActivity.DataStructure.getCategory()){
+        for(Category category : DataStructure.getCategory()){
             mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));
             //Frags.add(new FragTest(category.getCategoryName()));
             //밑에 Frag아재들 Static 으로 저지랄하는거 Dynamic으로 바꾼거
@@ -72,7 +75,7 @@ public class NormalActivity extends AppCompatActivity {
         //1. 처음에 들어온 순서를 기억하게 한다.
         //2. 카테고리를 먼저 만들고 짱박아두게 만드는 방법. -> 메커니즘을 살짝 고쳐야 할지도 모르지만 불가능한건 아니다.
 
-        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), MainActivity.DataStructure.getCategory());
+        mContentPagerAdapter = new ContentsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), DataStructure.getCategory());
         mViewPager.setAdapter(mContentPagerAdapter);
         //뭔 아재들인진 모르겠지만 어댑터 아재를 이걸로 쓰는걸로 보아...뭔 소린지 모르겠음 ㅋㅋㅋㅋ
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
