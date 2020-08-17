@@ -24,7 +24,7 @@
                 android:id="@+id/main_button0"
                 style="@style/main_button"
                 android:textColor="@android:color/white"
-
+                android:background="@drawable/three_button"
                 android:onClick="onClick"/>
         <!-- android:background="@drawable/three_button" -->
         <Button
@@ -32,7 +32,7 @@
                 android:id="@+id/main_button1"
                 style="@style/main_button"
                 android:textColor="@android:color/white"
-
+                android:background="@drawable/three_button"
                 android:onClick="onClick1"/>
         <!-- android:background="@drawable/three_button" -->
         <Button
@@ -40,7 +40,7 @@
                 android:id="@+id/main_button2"
                 style="@style/main_button"
                 android:textColor="@android:color/white"
-
+                android:background="@drawable/three_button"
                 android:onClick="onClick2"/>
         <!-- android:background="@drawable/three_button" -->
 

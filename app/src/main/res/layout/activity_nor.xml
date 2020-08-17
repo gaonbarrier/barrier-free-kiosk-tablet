@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
         <Button
                 android:padding="2dp"
-
+                android:background="@drawable/result_outline"
                 android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
