@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+import io.github.gaonbarrier.easykiosk.tablet.Cart.Cart;
 import io.github.gaonbarrier.easykiosk.tablet.Data.DataStructure;
 import io.github.gaonbarrier.easykiosk.tablet.HELPER.FullSize;
 import io.github.gaonbarrier.easykiosk.tablet.Data.Category;
@@ -44,6 +45,7 @@ public class NormalActivity extends AppCompatActivity {
     private ContentsPagerAdapter mContentPagerAdapter;
     //이 아재도 잘은 모르겠음.
     private DataStructure DataStructure;
+    private Cart Cart;
 
     //솔직히 맘같에선 밑에 처리들을 전부 menuLayout 아재가 다 처리햇으면 좋겠음. 언제든 바꿀 수 있게 위 아재들을 field에 좀 짱박아둘 생각.
 
@@ -61,7 +63,8 @@ public class NormalActivity extends AppCompatActivity {
 
         mTabLayout = findViewById(R.id.main_tab);
         mViewPager = findViewById(R.id.main_viewpager);
-        DataStructure = new DataStructure();
+        DataStructure = new DataStructure();;
+        MainActivity.Cart.getCartList().clear();
 
         for(Category category : DataStructure.getCategory()){
             mTabLayout.addTab(mTabLayout.newTab().setText(category.getCategoryName()));

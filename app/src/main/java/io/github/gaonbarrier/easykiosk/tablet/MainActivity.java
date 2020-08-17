@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         //Cart나 item 객체 Section
         ////////////////////////////////////////
         Cart = new Cart();
+        //이 아재는 리스너때매라도 스테틱이어야 한다.
         //DataStructure = new DataStructure();
 
         int[] buttonIDs = new int[3];
@@ -107,13 +108,13 @@ public class MainActivity extends AppCompatActivity {
         Receiver = receiver;
     }
 
-    public Cart getCartLayout() {
+    /*public Cart getCartLayout() {
         return Cart;
     }
 
     public void setCartLayout(Cart cart) {
         Cart = cart;
-    }
+    }*/
 
     /*public DataStructure getMenuLayout() {
         return DataStructure;
