@@ -72,10 +72,10 @@ public class ingredientDBOpenHelper {
         values.put(ingredientDB.CreateDB.INGREDIENT,ingredient);
         values.put(ingredientDB.CreateDB.IMAGE, image);
         Cursor c = mDB.query(ingredientDB.CreateDB._TABLENAME2, null, null, null, null, null, null);
-        while(c.moveToNext()){
-            String Name = c.getString(1);
-            if(c.getString(1).equals(name)){
-                Log.d("","Name:"+Name+"가 이미 존재합니다.");
+        while (c.moveToNext()){
+            String Name = c.getString(2);
+            if( c.getString(1).equals(Name) && c.getString(2).equals(ingredient)){
+                Log.d("", "Ingredient:"+ingredient+"가 이미 존재합니다.");
                 return false;
             }
         }
