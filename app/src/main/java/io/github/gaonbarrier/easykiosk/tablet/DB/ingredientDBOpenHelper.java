@@ -98,6 +98,7 @@ public class ingredientDBOpenHelper {
     }
 
     public void SelectAll(){
+        open();
         Cursor c = selectColumns();
         while(c.moveToNext()){
             int _id = c.getInt(0);
@@ -107,6 +108,7 @@ public class ingredientDBOpenHelper {
             Log.d("","_id:"+_id+",Name:"+Name
                     +",Ingredient:"+Ingredient+",Image:"+Image);
         }
+        close();
     }
 
 

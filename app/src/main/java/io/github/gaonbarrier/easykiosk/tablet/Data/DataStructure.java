@@ -3,6 +3,7 @@ package io.github.gaonbarrier.easykiosk.tablet.Data;
 import android.content.Context;
 import android.database.Cursor;
 import io.github.gaonbarrier.easykiosk.tablet.MainActivity;
+import io.github.gaonbarrier.easykiosk.tablet.Network.Receiver;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,11 @@ public class DataStructure {
     }
     public void createCategory(){
         ArrayList<String> CategoryName = new ArrayList<>();
+        MainActivity.Receiver.getItemDBOpenHelper().open();
+        MainActivity.Receiver.getIngredientDBOpenHelper().open();
+
         Cursor c = MainActivity.Receiver.getItemDBOpenHelper().selectColumns();
+
         while(c.moveToNext()){
             if(!CategoryName.contains(c.getString(2))) {
                 CategoryName.add(c.getString(2));
@@ -25,7 +30,10 @@ public class DataStructure {
                 }
             }
         }
+
+
         for(String data : CategoryName){
+
             Category temp = new Category(data, MainActivity.Receiver.getItemDBOpenHelper().selectCategory(data));
             for(item item : temp.getItems()){
                 ArrayList<Element> tmp = new ArrayList<>();
@@ -41,6 +49,10 @@ public class DataStructure {
             }
             Category.add(temp);
         }
+
+        MainActivity.Receiver.getItemDBOpenHelper().close();
+        MainActivity.Receiver.getIngredientDBOpenHelper().close();
+
     }
     public void insert(){
 

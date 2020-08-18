@@ -63,13 +63,13 @@ public class Receiver {
 
                             Log.v("", message);
 
-                            JsonParser parser = new JsonParser();
+                            //JsonParser parser = new JsonParser();
                             Gson gson = new Gson();
                             JsonElement element;
                             String command;
                             // input된 코드가 json이 아닐 경우 예외 처리
                             try {
-                                element = parser.parse(message);
+                                element = JsonParser.parseString(message);
                                 command = element.getAsJsonObject().get("Action").getAsString();
                             } catch (IllegalStateException e) {
                                 e.printStackTrace();
@@ -93,6 +93,8 @@ public class Receiver {
                                         int PriceCold = element.getAsJsonObject().get("PriceCold").getAsInt();
                                         String Image = element.getAsJsonObject().get("Image").getAsString();
 
+                                        itemDBOpenHelper.open();
+                                        ingredientDBOpenHelper.open();
 
                                         itemDBOpenHelper.insertColumn(Name, Category, PriceHot, PriceCold, Image);
                                         //새로운 메뉴 INSERT 명령 -> items Table에
@@ -109,6 +111,9 @@ public class Receiver {
                                         }
 
                                         ingredientDBOpenHelper.SelectAll();
+
+                                        itemDBOpenHelper.close();
+                                        ingredientDBOpenHelper.close();
                                     }
                                     break;
 
@@ -119,6 +124,7 @@ public class Receiver {
                                     // 아이디 대신 이름을 넣고 있었음
                                     case "DeleteMenu": {
                                         String name = element.getAsJsonObject().get("Name").getAsString();
+                                        itemDBOpenHelper.open();
                                         //이름만 따와서 ID를 찾고 그 ID 찾아서 지움
                                         //너무 raw한 sql 그대로 넣었는데 이 부분은 프레임워크 사용하는 코드로 적절히 고치는 것 추천
                                         Cursor cursor = itemDBOpenHelper.mDB.rawQuery("select * from items where name='"+name+"'", null);
@@ -127,6 +133,7 @@ public class Receiver {
                                             itemDBOpenHelper.deleteColumn(_id);
                                         }
                                         //NormalActivity -> OnCreate()
+                                        itemDBOpenHelper.close();
                                     }
                                     break;
                                     default:

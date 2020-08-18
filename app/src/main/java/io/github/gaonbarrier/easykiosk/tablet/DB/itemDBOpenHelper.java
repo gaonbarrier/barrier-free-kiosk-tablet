@@ -119,7 +119,9 @@ public class itemDBOpenHelper {
 
 
     public ArrayList<item> selectCategory(String Category){
+        open();
         Cursor c = selectColumns();
+
         ArrayList<item> tmp = new ArrayList<>();
         while(c.moveToNext()) {
             if(c.getString(2).equals(Category)){
@@ -127,10 +129,12 @@ public class itemDBOpenHelper {
                 tmp.add(temp);
             }
         }
+        close();
         return tmp;
     }
     //얜 약간 테스트용.
     public void SelectAll(){
+        open();
         Cursor c = selectColumns();
         while(c.moveToNext()){
             int _id = c.getInt(0);
@@ -142,6 +146,7 @@ public class itemDBOpenHelper {
             Log.d("","_id:"+_id+",Name:"+Name
                     +",Category:"+Category+",PriceHot:"+PriceHot+",PriceCold:"+PriceCold+",Image:"+Image);
         }
+        close();
     }
     // sort by column
     public Cursor sortColumn(String sort){
