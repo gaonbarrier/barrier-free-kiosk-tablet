@@ -63,13 +63,12 @@ public class Receiver {
 
                             Log.v("", message);
 
-                            JsonParser parser = new JsonParser();
                             Gson gson = new Gson();
                             JsonElement element;
                             String command;
                             // input된 코드가 json이 아닐 경우 예외 처리
                             try {
-                                element = parser.parse(message);
+                                element = JsonParser.parseString(message);
                                 command = element.getAsJsonObject().get("Action").getAsString();
                             } catch (IllegalStateException e) {
                                 e.printStackTrace();
